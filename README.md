@@ -8,7 +8,7 @@ To install:
 2. Copy the line below and paste into the Firewalla shell and then hit enter.
 
 ```
-curl -s -L -C- https://raw.githubusercontent.com/mbierman/pihole-installer-for-Firewalla/main/pihole_docker_install.sh| cat <(cat <(bash))
+curl -s -L -C- https://raw.githubusercontent.com/mbierman/pihole-installer-for-Firewalla/main/pihole_docker_install.sh | cat <(cat <(bash))
 ```
 
 Now go to the network settings on Firewalla App, assign 172.16.0.2 as the primary DNS server for all networks that you want to enable Pi-Hole and disable DoH or Unbound on these networks.
