@@ -1,18 +1,18 @@
-#!/bin/bash 
+#!/usr/bin/bash
 # v 1.0
 
 path1=/data/pi-hole
 if [ ! -d "$path1" ]; then
-        sudo mkdir $path1
+	sudo mkdir $path1
 fi
 
 path2=/home/pi/.firewalla/run/docker/pi-hole/
 if [ ! -d "$path2" ]; then
-        mkdir $path2
+	mkdir $path2
 fi
 
-curl https://github.com/mbierman/pihole-installer-for-Firewalla/blob/main/docker-compose.yaml > $path2/docker-compose.yaml
- 
+curl https://raw.githubusercontent.com/mbierman/pihole-installer-for-Firewalla/main/docker-compose.yaml > $path2/docker-compose.yaml
+
 
 cd $path2
 sudo systemctl start docker
