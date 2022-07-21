@@ -28,7 +28,7 @@ Now go to the network settings on Firewalla App, assign 172.16.0.2 as the primar
 **Standard disclaimer:** I can not be responsible for any issues that may result. Nothing in the script should in any way, affect firewalla as a router or comprimise security. Happy to answer questions though if I can. :)
 
 # Uninstalling
-In progress
+Instructions in progress...
 
 
 There are lots of pihole communities on [Reddit](https://www.reddit.com/r/pihole/. If you have pi-hole questions, please check there. 
