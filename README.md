@@ -1,4 +1,4 @@
-# Install UniFi Controller in Docker on Firewalla Gold or Purple
+# Install Pi-Hole in Docker on Firewalla Gold or Purple
 
 This is a script for installing pi-hole container on Firewalla Gold or Purple. It is based on the [Firewalla tutorial](https://help.firewalla.com/hc/en-us/articles/360051625034-Guide-How-to-install-Pi-Hole-on-Gold-Purple-Beta-) and has been tested on 1.974.
 
