@@ -12,15 +12,12 @@ if [ ! -d "$path2" ]; then
 fi
 
 if [ "$1" = "doh" ] ; then
-	echo DoH
-	# curl https://raw.githubusercontent.com/mbierman/pihole-installer-for-Firewalla/main/DoH_docker-compose.yaml > $path2/docker-compose.yaml
+	curl https://raw.githubusercontent.com/mbierman/pihole-installer-for-Firewalla/main/DoH_docker-compose.yaml > $path2/docker-compose.yaml
 
 else
-	echo no DoH
-	# curl https://raw.githubusercontent.com/mbierman/pihole-installer-for-Firewalla/main/docker-compose.yaml > $path2/docker-compose.yaml
+	curl https://raw.githubusercontent.com/mbierman/pihole-installer-for-Firewalla/main/docker-compose.yaml > $path2/docker-compose.yaml
 fi
-
-exit 
+ 
 
 cd $path2
 sudo systemctl start docker
