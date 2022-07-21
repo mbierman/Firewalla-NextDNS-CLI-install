@@ -37,10 +37,6 @@ do
 done
 echo "Done"
 
-echo address=/pihole/172.16.0.2 > ~/.firewalla/config/dnsmasq_local/pihole
-sudo systemctl restart firerouter_dns
-sudo docker restart pihole
-
 path3=/home/pi/.firewalla/config/post_main.d
 if [ ! -d "$path3" ]; then
         mkdir $path3
