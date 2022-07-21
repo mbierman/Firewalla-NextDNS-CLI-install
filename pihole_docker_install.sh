@@ -11,7 +11,7 @@ if [ ! -d "$path2" ]; then
 	mkdir $path2
 fi
 
-if [ "$1" = doh" ] ; then
+if [ "$1" = "doh" ] ; then
 	echo DoH
 	# curl https://raw.githubusercontent.com/mbierman/pihole-installer-for-Firewalla/main/DoH_docker-compose.yaml > $path2/docker-compose.yaml
 
