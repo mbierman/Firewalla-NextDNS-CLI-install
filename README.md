@@ -31,9 +31,8 @@ Now go to the network settings on Firewalla App, assign 172.16.0.2 as the primar
 Instructions in progress...
 
 1. `sudo docker container stop pihole && sudo docker container rm pihole`
-1. `sudo docker stop pihole`
-1. `rm -rf /data/pi-hole`
-1.  
+1. `sudo rm -rf /data/pi-hole`
+1. `rm /home/pi/.firewalla/run/docker/pi-hole/docker-compose.yaml`
 
 
 There are lots of pihole communities on [Reddit](https://www.reddit.com/r/pihole/. If you have pi-hole questions, please check there. 
