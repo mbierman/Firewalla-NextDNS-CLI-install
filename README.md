@@ -50,5 +50,9 @@ sudo docker system prune -f
 sudo docker container prune -f 
 ```
 
+You can also run this by copying this line and run it on firewalla. 
+```
+curl -s -L -C- https://raw.githubusercontent.com/mbierman/pihole-installer-for-Firewalla/main/uninstall_pihole.sh | cat <(cat <(bash -x))
+```
 
 There are lots of pihole communities on [Reddit](https://www.reddit.com/r/pihole/). If you have pi-hole questions, please check there. 
