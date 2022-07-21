@@ -16,13 +16,15 @@ If you want pi-hole with DoH, copy the line below instead and paste into the Fir
 curl -s -L -C- https://raw.githubusercontent.com/mbierman/pihole-installer-for-Firewalla/main/pihole_docker_install.sh doh | cat <(cat <(bash))
 ```
 
-Now go to the network settings on Firewalla App, assign 172.16.0.2 as the primary DNS server for all networks that you want to enable Pi-Hole and disable DoH or Unbound on these networks.
+Now go to the network settings on Firewalla App, assign `172.16.0.2` as the primary DNS server for all networks that you want to enable Pi-Hole and disable DoH or Unbound on these networks.
 
 1. Tap on Network Manager. 
-1. Tap on the Top right edit button. 
-1. Tap on each LAN segment you want to change DNS to pi-hole. 
-1. Scroll down and change the primary DNS to 172.16.0.2. leave the secondary DNS empty.
-1. Save and you should be able to see DNS requests coming up in the management console.
+1. Tap on the Top right edit button.
+1. Tap on each LAN or VLAN segment you want to use pi-hole on.
+1. Scroll down and change the primary DNS to `172.16.0.2`. leave the secondary DNS empty.
+1. Save and you should be able to see DNS requests coming up in the management console. Another test is to block something obvious like facebook.com in pihole and try to reach it. 
+
+Note, if all is working well, if you go to  [browserleaks.com/dns](https://browserleaks.com/dns) you should see your public IP (if you don't know what that is go to [ipinfo.io/](https://ipinfo.io/) to find out.) This means that 
 
 
 **Standard disclaimer:** I can not be responsible for any issues that may result. Nothing in the script should in any way, affect firewalla as a router or comprimise security. Happy to answer questions though if I can. :)
@@ -39,4 +41,4 @@ These are the basic steps to uninstall. Also included in the uninstall script ab
 1. `rm /home/pi/.firewalla/config/post_main.d/start_pihole.sh`
 
 
-There are lots of pihole communities on [Reddit](https://www.reddit.com/r/pihole/. If you have pi-hole questions, please check there. 
+There are lots of pihole communities on [Reddit](https://www.reddit.com/r/pihole/). If you have pi-hole questions, please check there. 
