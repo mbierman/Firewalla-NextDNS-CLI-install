@@ -18,7 +18,6 @@ else
 	curl https://raw.githubusercontent.com/mbierman/pihole-installer-for-Firewalla/main/docker-compose.yaml > $path2/docker-compose.yaml
 fi
  
-
 cd $path2
 sudo systemctl start docker
 sudo docker-compose pull
