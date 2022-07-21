@@ -34,7 +34,7 @@ Instructions in progress...
 1. `sudo rm -rf /data/pi-hole`
 1. `rm /home/pi/.firewalla/run/docker/pi-hole/docker-compose.yaml`
 1. `sudo systemctl stop docker-compose@pi-hole`
-1. 
+1. `rm /home/pi/.firewalla/config/post_main.d/start_pihole.sh`
 
 
 There are lots of pihole communities on [Reddit](https://www.reddit.com/r/pihole/. If you have pi-hole questions, please check there. 
