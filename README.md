@@ -27,7 +27,7 @@ Now go to the network settings on Firewalla App, assign `172.16.0.2` as the prim
 1. Scroll down and change the primary DNS to `172.16.0.2`. leave the secondary DNS empty.
 1. Save and you should be able to see DNS requests coming up in the management console. Another test is to block something obvious like facebook.com in pihole and try to reach it. 
 
-Note, if all is working well, if you go to  [browserleaks.com/dns](https://browserleaks.com/dns) you should see your public IP (if you don't know what that is go to [ipinfo.io](https://ipinfo.io/) to find out.) This means that DNS queries are going through your pi-hole server. 
+Note, if all is working well, if you go to [browserleaks.com/dns](https://browserleaks.com/dns) you should see the upstream DNS servers you set in pi-hole if you are using unencrypted DNS. If you are using 
 
 
 **Standard disclaimer:** I can not be responsible for any issues that may result. Nothing in the script should in any way, affect firewalla as a router or comprimise security. Happy to answer questions though if I can. :)
