@@ -29,6 +29,10 @@ sudo docker-compose up --detach
 
 sudo docker ps
 
+echo address=/pihole/172.16.0.2 > ~/.firewalla/config/dnsmasq_local/pihole
+sudo systemctl restart firerouter_dns
+sudo docker restart pihole
+
 echo -n "Starting docker (this can take ~ one minute)"
 while [ -z "$(sudo docker ps | grep pihole | grep -o Up)" ]
 do
