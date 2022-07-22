@@ -59,4 +59,4 @@ do
         echo -n "."
         sleep 2s
 done
-echo -e "Done!\n\nYou can open  http://172.16.0.2 in your favorite browser and set up your pi-hole now. (\n\nNote it may not have a certificate so the browser may give you a security warning.)\n\n"
+echo -e "Done!\n\nYou can open  http://172.16.0.2/admin in your favorite browser and set up your pi-hole now. (\n\nNote it may not have a certificate so the browser may give you a security warning.)\n\n"
