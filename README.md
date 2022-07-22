@@ -19,13 +19,15 @@ If you want pi-hole with DoH, copy the line below instead and paste into the Fir
 curl -s -L -C- https://raw.githubusercontent.com/mbierman/pihole-installer-for-Firewalla/main/pihole_docker_install.sh | cat <(cat <(bash -s -- doh))
 ```
 
-Now go to the network settings on Firewalla App, assign `172.16.0.2` as the primary DNS server for all networks that you want to enable Pi-Hole and disable DoH or Unbound on these networks.
+3. Now go to the network settings on Firewalla App, assign `172.16.0.2` as the primary DNS server for all networks that you want to enable Pi-Hole and disable DoH or Unbound on these networks.
 
-1. Tap on Network Manager. 
-1. Tap on the Top right edit button.
-1. Tap on each LAN or VLAN segment you want to use pi-hole on.
-1. Scroll down and change the primary DNS to `172.16.0.2`. leave the secondary DNS empty.
-1. Save and you should be able to see DNS requests coming up in the management console. Another test is to block something obvious like facebook.com in pihole and try to reach it. 
+* Tap on Network Manager. 
+* Tap on the Top right edit button.
+* Tap on each LAN or VLAN segment you want to use pi-hole on.
+* Scroll down and change the primary DNS to `172.16.0.2`. leave the secondary DNS empty.
+* Save and you should be able to see DNS requests coming up in the management console. Another test is to block something obvious like facebook.com in pihole and try to reach it. 
+
+# Testing
 
 Note, if all is working well, if you go to [browserleaks.com/dns](https://browserleaks.com/dns) you should see the upstream DNS servers you set in pi-hole if you are using unencrypted DNS. If you are using 
 
