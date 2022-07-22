@@ -21,10 +21,10 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/pihole-installer-for-F
 
 3. Now go to the network settings on Firewalla App, assign `172.16.0.2` as the primary DNS server for all networks that you want to enable Pi-Hole and disable DoH or Unbound on these networks.
 
-* Tap on Network Manager. 
-* Tap on the Top right edit button.
-* Tap on each LAN or VLAN segment you want to use pi-hole on.
-* Scroll down and change the primary DNS to `172.16.0.2`. Leave the secondary DNS empty.
+     1. Tap on Network Manager. 
+     1. Tap on the Top right edit button.
+     1. Tap on each LAN or VLAN segment you want to use pi-hole on.
+     1. Scroll down and change the primary DNS to `172.16.0.2`. Leave the secondary DNS empty.
 
 # Testing
 1. After completing the steps above, you should be able to see DNS requests coming up in the pi-hole management console [172.16.0.2/admin](http://172.16.0.2/admin).
