@@ -37,22 +37,7 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/pihole-installer-for-F
 # Uninstalling
 Instructions in progress...
 
-These are the basic steps to uninstall. Also included in the uninstall script above. This could probably be made a little more rigorous but will do for now.  
-
-``` shell
-sudo docker container stop pihole && sudo docker container rm pihole
-sudo rm -rf /data/pi-hole # use cautiously! this will peranently remove settings.
-rm /home/pi/.firewalla/run/docker/pi-hole/docker-compose.yaml
-sudo systemctl stop docker-compose@pi-hole
-rm /home/pi/.firewalla/config/post_main.d/start_pihole.sh
-sudo docker stop cloudflared
-sudo docker stop cloudflared && sudo docker container rm cloudflared
-sudo docker image prune -f
-sudo docker system prune -f 
-sudo docker container prune -f 
-```
-
-You can also run this by copying this line and run it on firewalla. 
+You can run this by copying this line and run it on firewalla to uninstall. 
 ```
 curl -s -L -C- https://raw.githubusercontent.com/mbierman/pihole-installer-for-Firewalla/main/uninstall_pihole.sh | cat <(cat <(bash -x))
 ```
