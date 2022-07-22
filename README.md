@@ -27,7 +27,7 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/pihole-installer-for-F
 * Scroll down and change the primary DNS to `172.16.0.2`. Leave the secondary DNS empty.
 
 # Testing
-1. After completing the steps above, you should be able to see DNS requests coming up in the pi-hole management console.
+1. After completing the steps above, you should be able to see DNS requests coming up in the pi-hole management console [172.16.0.2/admin](http://172.16.0.2/admin).
 2. Try to block something obvious in pi-hole like facebook.com and try to reach it you should be blocked. 
 3. If you go to [browserleaks.com/dns](https://browserleaks.com/dns) you should see the upstream DNS servers you set in pi-hole if you are using unencrypted DNS. 
 
