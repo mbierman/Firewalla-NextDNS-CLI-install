@@ -8,7 +8,9 @@ sudo systemctl stop docker-compose@pi-hole
 rm /home/pi/.firewalla/config/post_main.d/start_pihole.sh
 sudo docker stop cloudflared
 sudo docker stop cloudflared && sudo docker container rm cloudflared
-docker images -a | grep "pihole" | awk '{print $3}' | xargs docker rmi
-docker images -a | grep "cloudflared" | awk '{print $3}' | xargs docker rmi
+sudo docker images -a | grep pihole |  awk '{print $3}' | xargs sudo docker image rm
+sudo docker images -a | grep cloudflared |  awk '{print $3}' | xargs sudo docker image rm
 sudo docker system prune -f 
+sudo docker rm container pihole
+sudo docker rm container cloudflared
 sudo docker container prune -f 
