@@ -35,7 +35,6 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/pihole-installer-for-F
 **Standard disclaimer:** I can not be responsible for any issues that may result. Nothing in the script should in any way, affect firewalla as a router or comprimise security. Happy to answer questions though if I can. :)
 
 # Uninstalling
-Instructions in progress...
 
 You can run this by copying this line and run it on firewalla to uninstall. 
 ```
