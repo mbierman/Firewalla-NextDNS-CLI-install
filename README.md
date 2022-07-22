@@ -29,7 +29,7 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/pihole-installer-for-F
 
 # Testing
 
-Note, if all is working well, if you go to [browserleaks.com/dns](https://browserleaks.com/dns) you should see the upstream DNS servers you set in pi-hole if you are using unencrypted DNS. If you are using 
+Note, if all is working well, if you go to [browserleaks.com/dns](https://browserleaks.com/dns) you should see the upstream DNS servers you set in pi-hole if you are using unencrypted DNS. 
 
 
 **Standard disclaimer:** I can not be responsible for any issues that may result. Nothing in the script should in any way, affect firewalla as a router or comprimise security. Happy to answer questions though if I can. :)
