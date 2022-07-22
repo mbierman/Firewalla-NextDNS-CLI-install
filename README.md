@@ -24,7 +24,7 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/pihole-installer-for-F
 * Tap on Network Manager. 
 * Tap on the Top right edit button.
 * Tap on each LAN or VLAN segment you want to use pi-hole on.
-* Scroll down and change the primary DNS to `172.16.0.2`. leave the secondary DNS empty.
+* Scroll down and change the primary DNS to `172.16.0.2`. Leave the secondary DNS empty.
 * Save and you should be able to see DNS requests coming up in the management console. Another test is to block something obvious like facebook.com in pihole and try to reach it. 
 
 # Testing
