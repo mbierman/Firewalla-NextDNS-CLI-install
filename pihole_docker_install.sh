@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 # v 1.0
 
 path1=/data/pi-hole
