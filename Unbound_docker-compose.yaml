@@ -10,7 +10,7 @@ services:
     command: proxy-dns
     environment:
       - "TUNNEL_DNS_UPSTREAM=https://1.1.1.1/dns-query,https://1.0.0.1/dns-query,https://9.9.9.9/dns-query,https://149.112.112.9/dns-query"
-
+      - TZ="America/Los_Angeles" 
       # Listen on an unprivileged port
       - "TUNNEL_DNS_PORT=5053"
 
@@ -24,7 +24,7 @@ services:
 
   pihole:
     container_name: pihole
-    image: pihole/pihole:v5.1.2
+    image: pihole/pihole:latest
     environment:
       # set a secure password here or the default will be firewalla
       WEBPASSWORD: 'firewalla'
