@@ -1,0 +1,50 @@
+version: "3"
+
+# More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
+services:
+  cloudflared:
+    container_name: cloudflared
+    # Restart on crashes and on reboots
+    restart: unless-stopped
+    image: cloudflare/cloudflared:2020.12.0
+    command: proxy-dns
+    environment:
+      - "TUNNEL_DNS_UPSTREAM=https://1.1.1.1/dns-query,https://1.0.0.1/dns-query,https://9.9.9.9/dns-query,https://149.112.112.9/dns-query"
+
+      # Listen on an unprivileged port
+      - "TUNNEL_DNS_PORT=5053"
+
+      # Listen on all interfaces
+      - "TUNNEL_DNS_ADDRESS=0.0.0.0"
+
+    # Attach cloudflared only to the private network
+    networks:
+      default:
+        ipv4_address: 172.16.0.3
+
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:v5.1.2
+    environment:
+      # set a secure password here or the default will be firewalla
+      WEBPASSWORD: 'firewalla'
+      DNS1: '172.16.0.3#5053'
+      DNS2: 'no'
+    # Volumes store your data between container upgrades
+    volumes:
+      - '/data/pi-hole/etc-pihole/:/etc/pihole/'
+      - './etc-dnsmasq.d/:/etc/dnsmasq.d/'
+      - '/etc/localtime:/etc/localtime:ro'
+    restart: unless-stopped
+    networks:
+      default:
+        # static IP address for pi-hole
+        ipv4_address: 172.16.0.2
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+     config:
+       # your chosen docker network here
+       - subnet: 172.16.0.0/24
