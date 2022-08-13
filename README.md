@@ -1,6 +1,11 @@
 # Install Pi-Hole in Docker on Firewalla Gold or Purple
 
-This is a script for installing pi-hole container on Firewalla Gold or Purple. It is based on the [Firewalla tutorial](https://help.firewalla.com/hc/en-us/articles/360051625034-Guide-How-to-install-Pi-Hole-on-Gold-Purple-Beta-) and has been tested on 1.974. Note, Firewalla uses pi-hole v5.1.2  in their example. I have switched it to "latest" because that is a bit dated now. 
+This is a script for installing pi-hole container on Firewalla Gold or Purple. It is based on the [Firewalla tutorial](https://help.firewalla.com/hc/en-us/articles/360051625034-Guide-How-to-install-Pi-Hole-on-Gold-Purple-Beta-) and has been tested on 1.974.
+
+# Notes
+- Pi-hole runs fine on Purole or Gold.
+- Firewalla uses pi-hole v5.1.2  in their example. I have switched it to "latest" because that is a bit dated now. 
+- The Pi-hole password will be, `firewalla`?
 
 ![image](https://user-images.githubusercontent.com/1205471/180276302-1dfdb91f-952c-4194-8d06-371f1c14912d.png)
 
@@ -26,7 +31,6 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/pihole-installer-for-F
      1. Tap on each LAN or VLAN segment you want to use pi-hole on.
      1. Scroll down and change the primary DNS to `172.16.0.2`. Leave the secondary DNS empty.
      
-Note, the Pi-hole password will be, `firewalla`
 
 # Testing
 1. After completing the steps above, you should be able to see DNS requests coming up in the pi-hole management console [172.16.0.2/admin](http://172.16.0.2/admin).
