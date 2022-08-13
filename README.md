@@ -25,6 +25,8 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/pihole-installer-for-F
      1. Tap on the Top right edit button.
      1. Tap on each LAN or VLAN segment you want to use pi-hole on.
      1. Scroll down and change the primary DNS to `172.16.0.2`. Leave the secondary DNS empty.
+     
+Note, the Pi-hole password will be, `firewalla`
 
 # Testing
 1. After completing the steps above, you should be able to see DNS requests coming up in the pi-hole management console [172.16.0.2/admin](http://172.16.0.2/admin).
