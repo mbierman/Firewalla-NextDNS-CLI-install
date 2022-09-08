@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# uninstall configure NextDNS CLI on startup of Firewalla
+# file goes in: /home/pi/.firewalla/config/post_main.d/
+# DNS over HTTPS must be disabled in Firewalla app
+
+# uninstall NextDNS CLI
+if [ -f "/etc/apt/sources.list.d/nextdns.list" ] ; then
+        sudo rm /etc/apt/sources.list.d/nextdns.list
+        echo "file removed"
+else
+        echo "nothing to remove"
+fi
+# unalias apt-get
+# unalias apt 
+sudo nextdns uninstall 
+# sudo apt remove nextdns -y
+
+# restart Firewalla DNS service
+sudo systemctl restart firerouter_dns.service
+
+echo -e "nextdns uninstalled\n"
