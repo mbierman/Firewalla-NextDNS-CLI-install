@@ -1,6 +1,8 @@
-# Install Pi-Hole in Docker on Firewalla Gold or Purple
+# Install nextDNS CLI on Firewalla Gold or Purple
 
-This is a script for installing pi-hole container on Firewalla Gold or Purple. It is based on the [Firewalla tutorial](https://help.firewalla.com/hc/en-us/articles/360051625034-Guide-How-to-install-Pi-Hole-on-Gold-Purple-Beta-) and has been tested on 1.974.
+WIP not ready for use
+
+This is a script for installing nextDNS CLI container on Firewalla Gold or Purple. It is based on the [Firewalla tutorial](https://help.firewalla.com/hc/en-us/articles/360051625034-Guide-How-to-install-Pi-Hole-on-Gold-Purple-Beta-) and has been tested on 1.974.
 
 # Notes
 - Pi-hole runs fine on Purole or Gold.
