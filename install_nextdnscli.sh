@@ -11,7 +11,7 @@
 install=/home/pi/.firewalla/config/post_main.d/install_nextdnscli.sh 
 if [ ! -f "$install" ] ; then
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh > $install
-        sudo chmod +x $install
+        chmod +x $install
         echo install saved.
 else
         echo install in place. 
@@ -20,7 +20,7 @@ fi
 uninstall=/home/pi/.firewalla/config/post_main.d/uninstall_nextdnscli.nosh 
 if [ ! -f "$uninstall" ] ; then
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/uninstall_nextdns_cli.nosh > $uninstall
-        sudo chmod +x $uninstall
+        chmod +x $uninstall
         echo uninstall saved.
 else
         echo uninstall in place
