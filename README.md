@@ -2,12 +2,12 @@
 
 WIP not ready for use
 
-This is a script for installing nextDNS CLI container on Firewalla Gold or Purple. It is based on the [Firewalla tutorial](https://help.firewalla.com/hc/en-us/articles/360051625034-Guide-How-to-install-Pi-Hole-on-Gold-Purple-Beta-) and has been tested on 1.974.
+This is a script for installing nextDNS CLI container on Firewalla Gold or Purple. It is based on the [a script by Brian Curtis ](https://help.firewalla.com/hc/en-us/community/posts/7469669689619-NextDNS-CLI-on-Firewalla-revisited-working-DHCP-host-resolution-in-NextDNS-logs- and has been tested on 1.974.
+
 
 # Notes
-- Pi-hole runs fine on Purole or Gold.
-- Firewalla uses pi-hole v5.1.2  in their example. I have switched it to "latest" because that is a bit dated now. 
-- The Pi-hole password will be, `firewalla`.
+- nextdns CLI runs fine on Purole or Gold.
+
 
 ![image](https://user-images.githubusercontent.com/1205471/180276302-1dfdb91f-952c-4194-8d06-371f1c14912d.png)
 
