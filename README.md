@@ -39,7 +39,7 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-
 
 You can run this by copying this line and run it on firewalla to uninstall. 
 ```
-curl -s -L -C- https://raw.githubusercontent.com/mbierman/pihole-installer-for-Firewalla/main/uninstall_pihole.sh | cat <(cat <(bash -x))
+curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/uninstall_nextdns_CLI.nosh | cat <(cat <(bash))
 ```
 
 There are lots of pihole communities on [Reddit](https://www.reddit.com/r/pihole/). If you have pi-hole questions, please check there. 
