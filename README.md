@@ -53,7 +53,9 @@ github.com.		10	IN	A	192.30.255.113
 ```
 The SERVER line should match the Firewalla server you set if nextDNS CLI is working. OR 
 
-2. You can try https://browserleaks.com/dns to see if it shows 
+2. You can try https://my.nextdns.io/ to see if it shows that nextDNS is working. 
+
+Great resource for [all things nextDNS CLI](https://github.com/nextdns/nextdns/wiki).
 
 
 **Standard disclaimer:** I can not be responsible for any issues that may result. Nothing in the script should in any way, affect firewalla as a router or comprimise security. Happy to answer questions though if I can. :)
