@@ -30,7 +30,6 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-
 # Testing
 1. After completing the steps above, you should be able to see DNS requests coming up in the pi-hole management console [172.16.0.2/admin](http://172.16.0.2/admin).
 2. Try to block something obvious in pi-hole like facebook.com and try to reach it you should be blocked. 
-3. If you go to [browserleaks.com/dns](https://browserleaks.com/dns) you should see the upstream DNS servers you set in pi-hole if you are using unencrypted DNS. 
 
 
 **Standard disclaimer:** I can not be responsible for any issues that may result. Nothing in the script should in any way, affect firewalla as a router or comprimise security. Happy to answer questions though if I can. :)
@@ -42,4 +41,4 @@ You can run this by copying this line and run it on firewalla to uninstall.
 curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/uninstall_nextdns_CLI.nosh | cat <(cat <(bash))
 ```
 
-There are lots of pihole communities on [Reddit](https://www.reddit.com/r/pihole/). If you have pi-hole questions, please check there. 
+There are lots of nextDNS communities on Reddit. If you have nextDNS CLI questions, please check there.
