@@ -1,12 +1,12 @@
 #!/bin/bash
-
 # 1.0
-# Based on a script by Brian Curtis
+# Based on a script by Brian Curtis 
 # https://help.firewalla.com/hc/en-us/community/posts/7469669689619-NextDNS-CLI-on-Firewalla-revisited-working-DHCP-host-resolution-in-NextDNS-logs-
 
 # install & configure NextDNS CLI on startup of Firewalla
 # file goes in: /home/pi/.firewalla/config/post_main.d/
 # DNS over HTTPS must be disabled in Firewalla app
+
 
 install=/home/pi/.firewalla/config/post_main.d/install_nextdnscli.sh 
 if [ ! -f "$install" ] ; then
@@ -29,14 +29,15 @@ fi
 id=123456
 IP=10.10.12.1
 
+
 if [[ -z $id ]] ; then
-        echo -n "Your nextdns ID is not set.\n You should edit $install before running" 
+        echo -e "Your nextdns ID is not set.\nEdit $install and run again."
         exit
 elif [[ -z $IP ]] ; then
-        echo -n "Your Firewalla IP is not set.\n You should edit $install before running" 
+        echo -e "Your Firewalla IP is not set.\nEdit $uninstall and run again."
         exit
 else
-        echo -n "Fully configured and ready to go!\n\n"
+        echo -e "Fully configured and ready to go!\n\n"
 fi
 
 # install NextDNS CLI
