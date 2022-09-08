@@ -66,4 +66,10 @@ You can run this by copying this line and run it on firewalla to uninstall.
 curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/uninstall_nextdns_CLI.nosh | cat <(cat <(bash))
 ```
 
+This script will also be saved when you install and you can just run it locally:
+```
+/home/pi/.firewalla/config/post_main.d/uninstall_nextdnscli.nosh
+```
+
+
 There are lots of nextDNS communities on Reddit. If you have nextDNS CLI questions, please check there.
