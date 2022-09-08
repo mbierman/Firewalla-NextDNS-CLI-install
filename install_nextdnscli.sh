@@ -33,9 +33,8 @@ elif [[ -z $IP ]] ; then
         echo -n "Your Firewalla IP is not set.\n You should edit $install before running" 
         exit
 else
-        echo -n "fully configured and ready to go!"
+        echo -n "Fully configured and ready to go!\n\n"
 fi
-exit
 
 # install NextDNS CLI
 sudo wget -qO /usr/share/keyrings/nextdns.gpg https://repo.nextdns.io/nextdns.gpg
@@ -43,7 +42,6 @@ echo "deb [signed-by=/usr/share/keyrings/nextdns.gpg] https://repo.nextdns.io/de
 unalias apt
 sudo apt update
 sudo apt install nextdns
-
 
 # enable NextDNS caching: https://github.com/nextdns/nextdns/wiki/Cache-Configuration
 # set discovery-dns to IP of Firewalla local DNS
