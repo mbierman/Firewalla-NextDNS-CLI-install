@@ -7,6 +7,7 @@ This is a script for installing nextDNS CLI container on Firewalla Gold or Purpl
 
 # Notes
 - nextdns CLI runs fine on Purole or Gold.
+- nextdns CLI runs nicely with Firewalla Unbound but so far it I have not been successful in getting it to work with DNS over HTTP (DoH). So if you care about using DoH, do not install nextDNS CLI. Instead, you can use nextDNS via Firewalla DoH. 
 
 
 
