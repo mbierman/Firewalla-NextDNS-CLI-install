@@ -24,10 +24,10 @@ else
         echo uninstall in place
 fi
 
-# replace -config 123456 with your own NextDNS config ID
-# replace 10.10.12.1 with your Firewalla local lan IP
-id=123456
-IP=10.10.12.1
+# set id with your own NextDNS config ID
+# set IP with your Firewalla local lan IP
+id=
+IP=
 
 
 if [[ -z $id ]] ; then
