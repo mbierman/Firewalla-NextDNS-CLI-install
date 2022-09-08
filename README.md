@@ -18,7 +18,7 @@ To install:
 2. If you want regular pi-hole, copy the line below and paste into the Firewalla shell and then hit enter. 
 
 ```
-curl -s -L -C- https://raw.githubusercontent.com/mbierman/pihole-installer-for-Firewalla/main/pihole_docker_install.sh | cat <(cat <(bash))
+curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh | cat <(cat <(bash))
 ```
 
 If you want pi-hole with DoH, copy the line below instead and paste into the Firewalla shell and then hit enter.
