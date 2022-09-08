@@ -28,8 +28,32 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-
      
 
 # Testing
-1. After completing the steps above, you should be able to see DNS requests coming up in the pi-hole management console [172.16.0.2/admin](http://172.16.0.2/admin).
-2. Try to block something obvious in pi-hole like facebook.com and try to reach it you should be blocked. 
+After completing the steps above, you can: 
+1. Try 
+```
+dig github.com
+; <<>> DiG 9.10.6 <<>> github.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 5679
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;github.com.			IN	A
+
+;; ANSWER SECTION:
+github.com.		10	IN	A	192.30.255.113
+
+;; Query time: 20 msec
+;; SERVER: 192.168.241.1#53(192.168.241.1)
+;; WHEN: Thu Sep 08 10:56:06 PDT 2022
+;; MSG SIZE  rcvd: 55
+```
+The SERVER line should match the Firewalla server you set if nextDNS CLI is working. OR 
+
+2. You can try https://browserleaks.com/dns to see if it shows 
 
 
 **Standard disclaimer:** I can not be responsible for any issues that may result. Nothing in the script should in any way, affect firewalla as a router or comprimise security. Happy to answer questions though if I can. :)
