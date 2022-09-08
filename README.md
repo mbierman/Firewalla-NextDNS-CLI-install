@@ -9,21 +9,14 @@ This is a script for installing nextDNS CLI container on Firewalla Gold or Purpl
 - nextdns CLI runs fine on Purole or Gold.
 
 
-![image](https://user-images.githubusercontent.com/1205471/180276302-1dfdb91f-952c-4194-8d06-371f1c14912d.png)
-
 
 To install:
 1. SSH into your Firewalla ([learn how](https://help.firewalla.com/hc/en-us/articles/115004397274-How-to-access-Firewalla-using-SSH-) if you don't know how already.)
 
-2. If you want regular pi-hole, copy the line below and paste into the Firewalla shell and then hit enter. 
+2. Copy the line below and paste into the Firewalla shell and then hit enter. 
 
 ```
 curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh | cat <(cat <(bash))
-```
-
-If you want pi-hole with DoH, copy the line below instead and paste into the Firewalla shell and then hit enter.
-```
-curl -s -L -C- https://raw.githubusercontent.com/mbierman/pihole-installer-for-Firewalla/main/pihole_docker_install.sh | cat <(cat <(bash -s -- doh))
 ```
 
 3. Now go to the network settings on Firewalla App, assign `172.16.0.2` as the primary DNS server for all networks that you want to enable Pi-Hole and disable DoH or Unbound on these networks.
