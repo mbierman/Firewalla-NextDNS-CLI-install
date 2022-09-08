@@ -24,14 +24,7 @@ To install:
 ```
 curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh | cat <(cat <(bash))
 ```
-
-3. Now go to the network settings on Firewalla App, assign `172.16.0.2` as the primary DNS server for all networks that you want to enable Pi-Hole and disable DoH or Unbound on these networks.
-
-     1. Tap on Network Manager. 
-     1. Tap on the Top right edit button.
-     1. Tap on each LAN or VLAN segment you want to use pi-hole on.
-     1. Scroll down and change the primary DNS to `172.16.0.2`. Leave the secondary DNS empty.
-     
+  
 
 # Testing
 After completing the steps above, you can: 
