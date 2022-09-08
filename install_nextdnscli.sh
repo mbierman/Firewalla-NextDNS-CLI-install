@@ -18,7 +18,7 @@ fi
 
 uninstall=/home/pi/.firewalla/config/post_main.d/uninstall_nextdnscli.nosh 
 if [ ! -f "$install" ] ; then
-        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/uninstall_nextdns_CLI.nosh > $uninstall
+        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/uninstall_nextdns_cli.nosh > $uninstall
         echo uninstall saved.
 else
         echo uninstall in place
