@@ -1,20 +1,17 @@
-# Install nextDNS CLI on Firewalla Gold or Purple
+# Install NextDNS CLI on Firewalla Gold or Purple
 
-This is a script for installing nextDNS CLI container on Firewalla Gold or Purple. It is based on [a script by Brian Curtis](https://help.firewalla.com/hc/en-us/community/posts/7469669689619-NextDNS-CLI-on-Firewalla-revisited-working-DHCP-host-resolution-in-NextDNS-logs-) and has been tested on 1.975.
+This is a script for installing NextDNS CLI container on Firewalla Gold or Purple. It is based on [a script by Brian Curtis](https://help.firewalla.com/hc/en-us/community/posts/7469669689619-NextDNS-CLI-on-Firewalla-revisited-working-DHCP-host-resolution-in-NextDNS-logs-) and has been tested on 1.975.
 
 
 # Notes
-- nextdns CLI runs fine on Purple or Gold (I hve not tested anywhere else).
-- nextdns CLI runs nicely with Firewalla Unbound, but so far it I have not been successful in getting it to work with Firewalla DNS over HTTP (DoH) but nextDNS CLI uses DoH. 
+- NextDNS CLI runs fine on Purple or Gold (I hve not tested anywhere else).
+- NextDNS CLI runs nicely with Firewalla Unbound, but so far it I have not been successful in getting it to work with Firewalla DNS over HTTP (DoH) but NextDNS CLI uses DoH. 
 
 - Pros: 
-   * Running nextDNS CLI as opposed to using Firewalla DoH > nextDNS, you can have DoH betwen FW and nextDNS and it shows individual client devices, not just your firewalla making all the requests. Less anonymous to be sure, but if you want to look at logs by device, that is handy. Note, it seems that is by IP (not mac address of course) so you may end up with the same device entered many times. :( I haven't found a solution to that yet. You can of course, always disable nextDNS logs if you like. 
-   * This does not require disabling Firewalla DNS Booster... though I am still testing to see if there are any negative side effects. I'm worried that it may be side stepping Firewalla... stay tuned on that. 
+   * Running NextDNS CLI as opposed to using Firewalla DoH > NextDNS, you can have DoH betwen FW and NextDNS and it shows individual client devices, not just your firewalla making all the requests. Less anonymous to be sure, but if you want to look at logs by device, that is handy. Note, it seems that is by IP (not mac address of course) so you may end up with the same device entered many times. :( I haven't found a solution to that yet. You can of course, always disable NextDNS logs if you like. 
+   * NextDNS CLI does not require disabling Firewalla DNS Booster... though I am still testing to see if there are any negative side effects. I'm worried that it may be side stepping Firewalla... stay tuned on that. 
 
-- You cannot use Firewalla DoH and nextdns CLI though.
-
-
-
+- You cannot use Firewalla DoH and NextDNS CLI.
 
 
 To install:
@@ -23,14 +20,14 @@ To install:
 2. Copy the line below and paste into the Firewalla shell and then hit enter. 
 
 ```
-curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh | cat <(cat <(bash))
+curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_NextDNScli.sh | cat <(cat <(bash))
 ```
   
 
 # Testing
 After completing the steps above, you can: 
 
-1. Open `https://test.nextdns.io/` 
+1. Open `https://test.NextDNS.io/` 
 ![11662D0C-718C-4B7F-AC27-816FA02D4764](https://user-images.githubusercontent.com/1205471/189506662-a65c3b78-bc26-4d76-939c-1b75b9233c13.jpeg)
 
 
@@ -56,11 +53,11 @@ github.com.		10	IN	A	192.30.255.113
 ;; WHEN: Thu Sep 08 10:56:06 PDT 2022
 ;; MSG SIZE  rcvd: 55
 ```
-The SERVER line should match the Firewalla server you set if nextDNS CLI is working. OR 
+The SERVER line should match the Firewalla server you set if NextDNS CLI is working. OR 
 
-3. You can try https://my.nextdns.io/ to see if it shows that nextDNS is working. 
+3. You can try https://my.NextDNS.io/ to see if it shows that NextDNS is working. 
 
-Great resource for [all things nextDNS CLI](https://github.com/nextdns/nextdns/wiki).
+Great resource for [all things NextDNS CLI](https://github.com/NextDNS/NextDNS/wiki).
 
 
 **Standard disclaimer:** I can not be responsible for any issues that may result. Nothing in the script should in any way, affect firewalla as a router or comprimise security. Happy to answer questions though if I can. :)
@@ -69,13 +66,13 @@ Great resource for [all things nextDNS CLI](https://github.com/nextdns/nextdns/w
 
 You can run this by copying this line and run it on firewalla to uninstall. 
 ```
-curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/uninstall_nextdns_CLI.nosh | cat <(cat <(bash))
+curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/uninstall_NextDNS_CLI.nosh | cat <(cat <(bash))
 ```
 
 This script will also be saved when you install and you can just run it locally:
 ```
-/home/pi/.firewalla/config/post_main.d/uninstall_nextdnscli.nosh
+/home/pi/.firewalla/config/post_main.d/uninstall_NextDNScli.nosh
 ```
 
 
-There are lots of nextDNS communities on Reddit. If you have nextDNS CLI questions, please check there.
+There are lots of NextDNS communities on Reddit. If you have NextDNS CLI questions, please check there.
