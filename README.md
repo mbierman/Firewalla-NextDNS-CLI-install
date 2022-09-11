@@ -28,7 +28,12 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-
 
 # Testing
 After completing the steps above, you can: 
-1. Try 
+
+1. Open `https://test.nextdns.io/` 
+![11662D0C-718C-4B7F-AC27-816FA02D4764](https://user-images.githubusercontent.com/1205471/189506662-a65c3b78-bc26-4d76-939c-1b75b9233c13.jpeg)
+
+
+3. Try 
 ```
 dig github.com
 ; <<>> DiG 9.10.6 <<>> github.com
@@ -52,7 +57,7 @@ github.com.		10	IN	A	192.30.255.113
 ```
 The SERVER line should match the Firewalla server you set if nextDNS CLI is working. OR 
 
-2. You can try https://my.nextdns.io/ to see if it shows that nextDNS is working. 
+3. You can try https://my.nextdns.io/ to see if it shows that nextDNS is working. 
 
 Great resource for [all things nextDNS CLI](https://github.com/nextdns/nextdns/wiki).
 
