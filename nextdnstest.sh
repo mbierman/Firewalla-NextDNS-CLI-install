@@ -56,7 +56,7 @@ fi
 checkthis () {
         status="$(sudo nextdns status)"
         if [ "$status" != "running" ]; then
-                echo "❌ not running"
+                echo "❌  not running"
         else
                 echo "✅  nextdns: $status"
         fi
