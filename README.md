@@ -80,8 +80,10 @@ You can use the following to run a test to make sure nextDNS is running and log 
 If you want to run the monitor automatically, you can add the following line to `/home/pi/.firewalla/config/user_crontab` and restart Firealla. From then on, every 5 minutes the test will check to see if nextDNS is running on Fireawlla. 
 
 ```
-*/5 * * * * /data/nextdnstest.sh
+*/5 * * * *  timeout -s SIGKILL 4m /data/nextdnstest.sh
 ```
+
+Make sure the "4m" is < the amount of time between runs. So here we have run every 5 minutes and don't let the script run longer than 4 minutes.
 
 You can also send a notification via IFTT. This requires IFTTT to send the notifiction. Edit `/data/nextdnsdata.txt` to include your IFTTT API Key. 
 
