@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 2.0.2
+# 2.0.1
 
 # install & configure NextDNS CLI on startup of Firewalla
 # file goes in: /data/nextdnstest.sh
@@ -24,7 +24,7 @@ if [ ! -f "$install" ] ; then
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh > $install
         chmod +x $install
         echo "✅  install saved."
-els
+else
         echo "✅  install is installed."
 fi
 
@@ -65,8 +65,8 @@ checkthis () {
 checkthis 
 while [  "$status" != "running" ]; do
         sudo nextdns restart 
-        pushAlert $URL $IMAGE
         echo $edate nextdns failed >> /data/logs/nextdns.log
+        pushAlert $URL $IMAGE
         sleep 10
         checkthis
 done
