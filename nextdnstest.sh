@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 
 # 2.0
 
@@ -23,9 +23,9 @@ install=/home/pi/.firewalla/config/post_main.d/install_nextdnscli.sh
 if [ ! -f "$install" ] ; then
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh > $install
         chmod +x $install
-        echo ✅  install saved.
+        echo "✅  install saved."
 els
-        echo ✅  install in place. 
+        echo "✅  install in place."
 fi
 
 # Install Uninstall script if not installed
@@ -33,9 +33,9 @@ uninstall=/home/pi/.firewalla/config/post_main.d/uninstall_nextdnscli.nosh
 if [ ! -f "$uninstall" ] ; then
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/uninstall_nextdns_cli.nosh > $uninstall
         chmod +x $uninstall
-        echo ✅  uninstall saved.
+        echo "✅  uninstall saved."
 else
-        echo ✅  uninstall in place
+        echo "✅  uninstall in place"
 fi
 
 pushAlert () {
@@ -50,15 +50,15 @@ nextinstalled="$(command -v nextdns)"
 if [ "$(command -v nextdns)" != "/usr/bin/nextdns" ] ; then
         curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh | cat <(cat <(bash))
 else
-        echo ✅  nextdns is installed!
+        echo "✅  nextdns is installed!"
 fi
 
 checkthis () {
         status="$(sudo nextdns status)"
         if [ "$status" != "running" ]; then
-                echo not running
+                echo "❌ not running"
         else
-                echo ✅  nextdns: $status
+                echo "✅  nextdns: $status"
         fi
 }
 
