@@ -23,12 +23,22 @@ if [ -f "/etc/apt/sources.list.d/nextdns.list" ] ; then
 else
         echo "nothing to remove"
 fi
-# unalias apt-get
-# unalias apt 
+
 sudo nextdns uninstall 
-# sudo apt remove nextdns -y
 
 # restart Firewalla DNS service
 sudo systemctl restart firerouter_dns.service
+
+if [ -f "/home/pi/.firewalla/config/post_main.d/install_nextdnscli.sh" ]; then
+        rm -vi /home/pi/.firewalla/config/post_main.d/install_nextdnscli.sh
+fi
+
+if [ -f "/data/nextdnsdata.txt" ]; then
+        rm -vi /data/nextdnsdata.txt
+fi
+
+if [ -f "/data/nextdnstest.sh" ]; then
+        rm -vi /data/nextdnstest.sh
+fi
 
 echo -e "nextdns uninstalled\n"
