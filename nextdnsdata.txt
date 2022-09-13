@@ -1,0 +1,2 @@
+IFTTTKEY= # add your IFTTT key here. 
+IFTTTTrigger=nextDNSFAIL
