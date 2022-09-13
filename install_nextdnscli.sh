@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 2.0
+# 2.0.1
 # Based on a script by Brian Curtis 
 # https://help.firewalla.com/hc/en-us/community/posts/7469669689619-NextDNS-CLI-on-Firewalla-revisited-working-DHCP-host-resolution-in-NextDNS-logs-
 
@@ -25,7 +25,7 @@ else
         echo -e "Fully configured and ready to go!\n\n"
 fi
 
-# Install Script if not installed. 
+# Install script if not installed. 
 install=/home/pi/.firewalla/config/post_main.d/install_nextdnscli.sh 
 if [ ! -f "$install" ] ; then
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh > $install
@@ -46,21 +46,24 @@ else
 fi
 
 # install NextDNS CLI
-sudo wget -qO /usr/share/keyrings/nextdns.gpg https://repo.nextdns.io/nextdns.gpg
-echo "deb [signed-by=/usr/share/keyrings/nextdns.gpg] https://repo.nextdns.io/deb stable main" | sudo tee /etc/apt/sources.list.d/nextdns.list
-unalias apt
-sudo apt update
-sudo apt install nextdns
+if [ -z "$(command -v nextdns)" ] ; then 
+	sudo wget -qO /usr/share/keyrings/nextdns.gpg https://repo.nextdns.io/nextdns.gpg
+	echo "deb [signed-by=/usr/share/keyrings/nextdns.gpg] https://repo.nextdns.io/deb stable main" | sudo tee /etc/apt/sources.list.d/nextdns.list
+	unalias apt
+	sudo apt update
+	sudo apt install nextdns
 
-# enable NextDNS caching: https://github.com/nextdns/nextdns/wiki/Cache-Configuration
-# set discovery-dns to IP of Firewalla local DNS
-# set NextDNS CLI to listen on local network IP (instead of 127.0.0.1 -- allows DHCP host resolution in NextDNS logs)
-# define listen port instead of relying on -setup-router
-sudo nextdns install -config $id -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns $IP -listen ${IP}:5555
+	# enable NextDNS caching: https://github.com/nextdns/nextdns/wiki/Cache-Configuration
+	# set discovery-dns to IP of Firewalla local DNS
+	# set NextDNS CLI to listen on local network IP (instead of 127.0.0.1 -- allows DHCP host resolution in NextDNS logs)
+	# define listen port instead of relying on -setup-router
+	sudo nextdns install -config $id -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns $IP -listen ${IP}:5555
 
-# alternate command to implement conditional configuration: https://github.com/nextdns/nextdns/wiki/Conditional-Configuration
-# replace 192.168.122.0/24=abcdef with your own additional network and NextDNS config ID
-# sudo nextdns install -config 192.168.122.0/24=abcdef -config 123456 -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns 10.10.12.1 -listen 10.10.12.1:5555
+	# alternate command to implement conditional configuration: https://github.com/nextdns/nextdns/wiki/Conditional-Configuration
+	# sudo nextdns install -config $IP/24=abcdef -config 123456 -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns 10.10.12.1 -listen 10.10.12.1:5555
+else
+	echo "nextdns already installed..."
+fi
 
 # Add dnsmasq integration to enable client reporting in NextDNS logs: https://github.com/nextdns/nextdns/wiki/DNSMasq-Integration
 cat > /home/pi/.firewalla/config/dnsmasq/mynextdns.conf << EOF
@@ -83,6 +86,7 @@ if [ ! -f "$nextdnstest" ] ; then
 else
         echo test in place. 
 fi
+
 # Install data for IFTTT notification
 nextdnsdata=/data/nextdnsdata.txt
 if [ ! -f "$nextdnsdata" ] ; then
