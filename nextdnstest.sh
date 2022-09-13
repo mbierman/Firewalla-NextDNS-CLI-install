@@ -1,6 +1,7 @@
-#!/bin/bash
+!/bin/bash
 
 # 2.0
+
 # install & configure NextDNS CLI on startup of Firewalla
 # file goes in: /data/nextdnstest.sh
 # DNS over HTTPS must be disabled in Firewalla app
@@ -22,9 +23,9 @@ install=/home/pi/.firewalla/config/post_main.d/install_nextdnscli.sh
 if [ ! -f "$install" ] ; then
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh > $install
         chmod +x $install
-        echo install saved.
-else
-        echo install in place. 
+        echo ✅  install saved.
+els
+        echo ✅  install in place. 
 fi
 
 # Install Uninstall script if not installed
@@ -32,12 +33,10 @@ uninstall=/home/pi/.firewalla/config/post_main.d/uninstall_nextdnscli.nosh
 if [ ! -f "$uninstall" ] ; then
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/uninstall_nextdns_cli.nosh > $uninstall
         chmod +x $uninstall
-        echo uninstall saved.
+        echo ✅  uninstall saved.
 else
-        echo uninstall in place
+        echo ✅  uninstall in place
 fi
-
-# HERE 
 
 pushAlert () {
 # This requires an IFTTT pro key
@@ -51,7 +50,7 @@ nextinstalled="$(command -v nextdns)"
 if [ "$(command -v nextdns)" != "/usr/bin/nextdns" ] ; then
         curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh | cat <(cat <(bash))
 else
-        echo nextdns is installed!
+        echo ✅  nextdns is installed!
 fi
 
 checkthis () {
@@ -59,14 +58,14 @@ checkthis () {
         if [ "$status" != "running" ]; then
                 echo not running
         else
-                echo nextdns: $status
+                echo ✅  nextdns: $status
         fi
 }
 
 for i in {1..10}; do
         checkthis 
         if [ "$status" = "running" ]; then
-                echo "test complete"
+                echo "✅  test complete"
                 exit
         else 
                 sudo nextdns restart 
