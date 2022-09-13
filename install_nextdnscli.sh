@@ -1,30 +1,38 @@
 #!/bin/bash
 
-# 2.0.3
+# 2.0.1
+# Based on a script by Brian Curtis 
+# https://help.firewalla.com/hc/en-us/community/posts/7469669689619-NextDNS-CLI-on-Firewalla-revisited-working-DHCP-host-resolution-in-NextDNS-logs-
 
 # install & configure NextDNS CLI on startup of Firewalla
-# file goes in: /data/nextdnstest.sh
+# file goes in: /home/pi/.firewalla/config/post_main.d/
 # DNS over HTTPS must be disabled in Firewalla app
 
-# no need to edit these
-dir=$(dirname "$0")
-IFTTTKEY="$(cat $dir/nextdnsdata.txt | grep IFTTTKEY | cut -f2 -d "=" )"
-IFTTTrigger="$(cat $dir/nextdnsdata.txt | grep IFTTTTrigger | cut -f2 -d "=" )"
-IMAGE="https://icons-for-free.com/download-icon-nextdns-1330289847268527500_256.png"
-URL="http://pi.hole/admin" # opens the firewalla app on iOS 
-name=$(redis-cli get groupName)
-name="$(echo $name | sed -e "s|’|'|")"
-edate=$(date +'%a %b %d %H:%M:%S %Z %Y')
-tries=0
 
-# Install Script if not installed. 
+# set id with your own NextDNS config ID
+# set IP with your Firewalla local lan IP
+id=3c931d
+IP=192.168.0.1
+
+# check for configuration
+if [[ -z $id ]] ; then
+        echo -e "Your nextdns ID is not set.\nEdit $install and run again."
+        exit
+elif [[ -z $IP ]] ; then
+        echo -e "Your Firewalla IP is not set.\nEdit $uninstall and run again."
+        exit
+else
+        echo -e "Fully configured and ready to go!\n\n"
+fi
+
+# Install script if not installed. 
 install=/home/pi/.firewalla/config/post_main.d/install_nextdnscli.sh 
 if [ ! -f "$install" ] ; then
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh > $install
         chmod +x $install
-        echo "✅  install saved."
+        echo install saved.
 else
-        echo "✅  install is installed."
+        echo install in place. 
 fi
 
 # Install Uninstall script if not installed
@@ -32,51 +40,59 @@ uninstall=/home/pi/.firewalla/config/post_main.d/uninstall_nextdnscli.nosh
 if [ ! -f "$uninstall" ] ; then
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/uninstall_nextdns_cli.nosh > $uninstall
         chmod +x $uninstall
-        echo "✅  uninstall saved."
+        echo uninstall saved.
 else
-        echo "✅  uninstall is installed."
+        echo uninstall in place
 fi
 
-pushAlert () {
-# This requires an IFTTT pro key
-if [ -n "IFTTTKEY" ]; then
-        curl -X POST -H "Content-Type: application/json" --data "$json" https://maker.ifttt.com/trigger/$IFTTTrigger/with/key/$IFTTTKEY
-fi
-}
+# install NextDNS CLI
+if [ -z "$(command -v nextdns)" ] ; then 
+	sudo wget -qO /usr/share/keyrings/nextdns.gpg https://repo.nextdns.io/nextdns.gpg
+	echo "deb [signed-by=/usr/share/keyrings/nextdns.gpg] https://repo.nextdns.io/deb stable main" | sudo tee /etc/apt/sources.list.d/nextdns.list
+	unalias apt
+	sudo apt update
+	sudo apt install nextdns
 
-# Install nextdns 
-nextinstalled="$(command -v nextdns)"
-if [ "$(command -v nextdns)" != "/usr/bin/nextdns" ] ; then
-        curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh | cat <(cat <(bash))
+	# enable NextDNS caching: https://github.com/nextdns/nextdns/wiki/Cache-Configuration
+	# set discovery-dns to IP of Firewalla local DNS
+	# set NextDNS CLI to listen on local network IP (instead of 127.0.0.1 -- allows DHCP host resolution in NextDNS logs)
+	# define listen port instead of relying on -setup-router
+	sudo nextdns install -config $id -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns $IP -listen ${IP}:5555
+
+	# alternate command to implement conditional configuration: https://github.com/nextdns/nextdns/wiki/Conditional-Configuration
+	# sudo nextdns install -config $IP/24=abcdef -config 123456 -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns 10.10.12.1 -listen 10.10.12.1:5555
 else
-        echo "✅  nextdns is installed."
+	echo "nextdns already installed..."
 fi
 
-checkthis () {
-        status="$(sudo nextdns status)"
-        if [ "$status" != "running" ]; then
-                echo "❌  not running"
-        else
-                echo "✅  nextdns: $status"
-        fi
-}
+# Add dnsmasq integration to enable client reporting in NextDNS logs: https://github.com/nextdns/nextdns/wiki/DNSMasq-Integration
+cat > /home/pi/.firewalla/config/dnsmasq/mynextdns.conf << EOF
+server=${IP}#5555
+add-mac
+add-subnet=32,128
+EOF
 
-checkthis 
-while [  "$status" != "running" ]; do
-	tries=$(expr $tries + 1)
-	echo $tries
-	json='{"value1":"nextDNS on '$name' is not running @ '$edate'. '$tries' tries","value2":"'$URL'","value3":"'$IMAGE'"}'
-	sudo nextdns restart 
-	echo restarting... 
-        echo $edate nextdns failed >> /data/logs/nextdns.log
-        pushAlert $URL $IMAGE $i
-	sleep 15
-	if [ "$tries" >= "20" ]; then
-		exit
-	fi
-	checkthis
-done
+# restart Firewalla DNS service
+sudo systemctl restart firerouter_dns.service
 
-if [  "$status" != "running" ]; then
-	echo "✅  all tests complete"
+echo nextdns is... $(sudo nextdns status)
+
+# Install validation Script if not installed. 
+nextdnstest=/data/nextdnstest.sh
+if [ ! -f "$nextdnstest" ] ; then
+        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnstest.sh > $nextdnstest
+        chmod +x $nextdnstest
+        echo test saved.
+else
+        echo test in place. 
+fi
+
+# Install data for IFTTT notification
+nextdnsdata=/data/nextdnsdata.txt
+if [ ! -f "$nextdnsdata" ] ; then
+        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnsdata.txt > $nextdnsdata
+        chmod +x $nextdnsdata
+        echo data saved.
+else
+        echo data in place. 
 fi
