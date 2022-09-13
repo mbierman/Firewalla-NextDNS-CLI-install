@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # 2.0
-
 # install & configure NextDNS CLI on startup of Firewalla
 # file goes in: /data/nextdnstest.sh
 # DNS over HTTPS must be disabled in Firewalla app
