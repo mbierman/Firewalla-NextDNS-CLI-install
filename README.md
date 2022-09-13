@@ -67,11 +67,15 @@ Great resource for [all things NextDNS CLI](https://github.com/NextDNS/NextDNS/w
 **Standard disclaimer:** I can not be responsible for any issues that may result. Nothing in the script should in any way, affect firewalla as a router or comprimise security. Happy to answer questions though if I can. :)
 
 # Monitoring
-You can use the following to run a test to make sure nextDNS is running and alert you if it is not. Note the script requires IFTTT to send the notifiction. see nextdnsdata.txt
+You can use the following to run a test to make sure nextDNS is running and log to `/data/logs/nextdns.log` any errors.
+
+If you want to run the monitor automatically, you can add the following line to `/home/pi/.firewalla/config/user_crontab` and restart Firealla. From then on, every 5 minutes the test will check to see if nextDNS is running on Fireawlla. 
 
 ```
 */5 * * * * /data/nextdnstest.sh
 ```
+
+You can also send a notification via IFTT. This requires IFTTT to send the notifiction. Edit `/data/nextdnsdata.txt` to include your IFTTT API Key. 
 
 # Uninstalling
 
