@@ -1,8 +1,6 @@
 #!/bin/bash
 
 # 2.0
-# Based on a script by Brian Curtis 
-# https://help.firewalla.com/hc/en-us/community/posts/7469669689619-NextDNS-CLI-on-Firewalla-revisited-working-DHCP-host-resolution-in-NextDNS-logs-
 
 # install & configure NextDNS CLI on startup of Firewalla
 # file goes in: /home/pi/.firewalla/config/post_main.d/
@@ -90,5 +88,5 @@ if [ ! -f "$nextdnsdata" ] ; then
         chmod +x $nextdnsdata
         echo data saved.
 else
-        echo -e "$nextdnsdata in place.\nWe can send IFTTT notifications. Note you must edit $nextdnsdata to add your IFTTT API key.\n\n"
+        echo data in place. 
 fi
