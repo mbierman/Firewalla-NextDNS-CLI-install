@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # 2.0
+# Based on a script by Brian Curtis 
+# https://help.firewalla.com/hc/en-us/community/posts/7469669689619-NextDNS-CLI-on-Firewalla-revisited-working-DHCP-host-resolution-in-NextDNS-logs-
 
 # install & configure NextDNS CLI on startup of Firewalla
 # file goes in: /home/pi/.firewalla/config/post_main.d/
