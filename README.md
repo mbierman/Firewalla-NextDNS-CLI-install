@@ -66,6 +66,13 @@ Great resource for [all things NextDNS CLI](https://github.com/NextDNS/NextDNS/w
 
 **Standard disclaimer:** I can not be responsible for any issues that may result. Nothing in the script should in any way, affect firewalla as a router or comprimise security. Happy to answer questions though if I can. :)
 
+# Monitoring
+You can use the following to run a test to make sure nextDNS is running and alert you if it is not. Note the script requires IFTTT to send the notifiction. see nextdnsdata.txt
+
+```
+*/5 * * * * /data/nextdnstest.sh
+```
+
 # Uninstalling
 
 You can run this by copying this line and run it on firewalla to uninstall. 
@@ -76,13 +83,6 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-
 This script will also be saved when you install and you can just run it locally:
 ```
 /home/pi/.firewalla/config/post_main.d/uninstall_NextDNScli.nosh
-```
-
-# Monitoring
-You can use the following to run a test to make sure nextDNS is running and alert you if it is not. Note the script requires IFTTT to send the notifiction. see nextdnsdata.txt
-
-```
-*/5 * * * * /data/nextdnstest.sh
 ```
 
 There are lots of NextDNS communities on Reddit. If you have NextDNS CLI questions, please check there.
