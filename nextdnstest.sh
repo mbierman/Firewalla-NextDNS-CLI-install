@@ -1,9 +1,11 @@
 #!/bin/bash
 
-# 1.0
+# 1.0.1
+# Based on a script by Brian Curtis 
+# https://help.firewalla.com/hc/en-us/community/posts/7469669689619-NextDNS-CLI-on-Firewalla-revisited-working-DHCP-host-resolution-in-NextDNS-logs-
 
 # install & configure NextDNS CLI on startup of Firewalla
-# file goes in: /data/nextdnstest.sh
+# file goes in: /home/pi/.firewalla/config/post_main.d/
 # DNS over HTTPS must be disabled in Firewalla app
 
 
@@ -38,6 +40,8 @@ else
         echo uninstall in place
 fi
 
+# HERE 
+
 pushAlert () {
 # This requires an IFTTT pro key
 if [ -n "IFTTTKEY" ]; then
@@ -45,7 +49,7 @@ if [ -n "IFTTTKEY" ]; then
 fi
 }
 
-# Install nextdns if not installed
+# Install nextdns 
 nextinstalled="$(command -v nextdns)"
 if [ "$(command -v nextdns)" != "/usr/bin/nextdns" ] ; then
         curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh | cat <(cat <(bash))
