@@ -9,9 +9,9 @@
 
 # set id with your own NextDNS config ID
 # set IP with your Firewalla local lan IP
-id=
+id=3c931d
 IP=
-IP=
+IP=192.168.0.1
 
 # check for configuration
 if [[ -z $id ]] ; then
@@ -72,3 +72,22 @@ EOF
 sudo systemctl restart firerouter_dns.service
 
 echo nextdns is... $(sudo nextdns status)
+
+# Install validation Script if not installed. 
+nextdnstest=/data/nextdnstest.sh
+if [ ! -f "$nextdnstest" ] ; then
+        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnstest.sh > $nextdnstest
+        chmod +x $nextdnstest
+        echo test saved.
+else
+        echo test in place. 
+fi
+# Install data for IFTTT notification
+nextdnsdata=/data/nextdnsdata.txt
+if [ ! -f "$nextdnsdata" ] ; then
+        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnsdata.txt > $nextdnsdata
+        chmod +x $nextdnsdata
+        echo data saved.
+else
+        echo data in place. 
+fi
