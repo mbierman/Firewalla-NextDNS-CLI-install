@@ -20,7 +20,7 @@ fi
 installed="$(command -v nextdns)"
 if [ "$(command -v nextdns)" != "/usr/bin/nextdns" ] ; then
         echo nextdns not installed
-        curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh | cat <(cat <(bash))
+        # curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh | cat <(cat <(bash))
 else
         echo nextdns is installed!
 fi
