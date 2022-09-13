@@ -65,7 +65,7 @@ checkthis () {
 for i in {1..10}; do
         checkthis 
         if [ "$status" = "running" ]; then
-                echo "✅  test complete"
+                echo "✅  all tests complete"
                 exit
         else 
                 sudo nextdns restart 
