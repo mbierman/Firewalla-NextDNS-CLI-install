@@ -20,7 +20,7 @@ To install:
 2. Copy the line below and paste into the Firewalla shell and then hit enter. 
 
 ```
-curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_NextDNScli.sh | cat <(cat <(bash))
+curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh | cat <(cat <(bash))
 ```
   
 
