@@ -60,7 +60,6 @@ checkthis () {
         if [ "$status" != "running" ]; then
                 echo not running
         else
-                echo running
                 echo nextdns: $status
         fi
 }
