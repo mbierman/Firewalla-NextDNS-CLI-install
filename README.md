@@ -18,10 +18,14 @@ To install:
 1. SSH into your Firewalla ([learn how](https://help.firewalla.com/hc/en-us/articles/115004397274-How-to-access-Firewalla-using-SSH-) if you don't know how already.)
 
 2. Copy the line below and paste into the Firewalla shell and then hit enter. 
-
 ```
 curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh | cat <(cat <(bash))
 ```
+3. You must configure two things in `/home/pi/.firewalla/config/post_main.d/install_nextdnscli.s`
+   * IP the IP of your Firealla LAN
+   * id the nextDNS id
+4. If you want to get notifications when nextDNS is not running, edit `/data/nextdnsdata.txt` to include your IFTTT API key (optional)
+
   
 
 # Testing
