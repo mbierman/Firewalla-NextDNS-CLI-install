@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # 2.0
+# Based on a script by Brian Curtis 
+# https://help.firewalla.com/hc/en-us/community/posts/7469669689619-NextDNS-CLI-on-Firewalla-revisited-working-DHCP-host-resolution-in-NextDNS-logs-
 
 # install & configure NextDNS CLI on startup of Firewalla
 # file goes in: /home/pi/.firewalla/config/post_main.d/
@@ -9,9 +11,8 @@
 
 # set id with your own NextDNS config ID
 # set IP with your Firewalla local lan IP
-id=3c931d
+id=
 IP=
-IP=192.168.0.1
 
 # check for configuration
 if [[ -z $id ]] ; then
@@ -89,5 +90,5 @@ if [ ! -f "$nextdnsdata" ] ; then
         chmod +x $nextdnsdata
         echo data saved.
 else
-        echo data in place. 
+        echo -e "$nextdnsdata in place.\nWe can send IFTTT notifications. Note you must edit $nextdnsdata to add your IFTTT API key.\n\n"
 fi
