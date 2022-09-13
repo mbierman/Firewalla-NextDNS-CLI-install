@@ -24,9 +24,17 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-
 3. Next, you must configure two things in `/home/pi/.firewalla/config/post_main.d/install_nextdnscli.sh`
    * **IP** the IP of your Firealla LAN
    * **id** the nextDNS id
+   
+   ```
+   vi /home/pi/.firewalla/config/post_main.d/install_nextdnscli.sh
+   ```
+   
 4. If you want to get notifications when nextDNS is not running, edit `/data/nextdnsdata.txt` to include your IFTTT API key (_optional_)
 
-  
+   ```
+   vi /data/nextdnsdata.txt
+   ```
+   
 
 # Testing
 After completing the steps above, you can: 
