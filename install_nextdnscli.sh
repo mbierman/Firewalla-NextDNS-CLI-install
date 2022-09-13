@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 2.0.1
+# 2.0.2
 # Based on a script by Brian Curtis 
 # https://help.firewalla.com/hc/en-us/community/posts/7469669689619-NextDNS-CLI-on-Firewalla-revisited-working-DHCP-host-resolution-in-NextDNS-logs-
 
@@ -75,16 +75,16 @@ EOF
 # restart Firewalla DNS service
 sudo systemctl restart firerouter_dns.service
 
-echo nextdns is... $(sudo nextdns status)
+echo "nextdns is... $(sudo nextdns status)"
 
 # Install validation Script if not installed. 
 nextdnstest=/data/nextdnstest.sh
 if [ ! -f "$nextdnstest" ] ; then
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnstest.sh > $nextdnstest
         chmod +x $nextdnstest
-        echo test saved.
+        echo "test saved."
 else
-        echo test in place. 
+        echo "test in place."
 fi
 
 # Install data for IFTTT notification
@@ -92,7 +92,7 @@ nextdnsdata=/data/nextdnsdata.txt
 if [ ! -f "$nextdnsdata" ] ; then
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnsdata.txt > $nextdnsdata
         chmod +x $nextdnsdata
-        echo data saved.
+        echo "data saved."
 else
-        echo data in place. 
+        echo "data in place."
 fi
