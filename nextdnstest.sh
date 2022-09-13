@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 2.0
+# 2.0.1
 
 # install & configure NextDNS CLI on startup of Firewalla
 # file goes in: /data/nextdnstest.sh
