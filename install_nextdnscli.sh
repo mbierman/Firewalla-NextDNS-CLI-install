@@ -11,8 +11,8 @@
 
 # set id with your own NextDNS config ID
 # set IP with your Firewalla local lan IP
-id=3c931d
-IP=192.168.0.1
+id=
+IP=
 
 # check for configuration
 if [[ -z $id ]] ; then
