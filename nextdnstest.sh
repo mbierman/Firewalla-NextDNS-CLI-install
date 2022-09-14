@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 2.0.5
+# 2.0.6
 
 #  Check to see if nextDNS is running and alert if not. 
 # file goes in: /data/nextdnstest.sh
@@ -68,10 +68,10 @@ while [  "$status" != "running" ]; do
 	json='{"value1":"nextDNS on '$name' is not running @ '$edate'. '$tries' tries","value2":"'$URL'","value3":"'$IMAGE'"}'
 	sudo nextdns restart 
 	echo restarting... 
-        echo $edate nextdns failed try:${tries} >> /data/logs/nextdns.log
         pushAlert $URL $IMAGE $i
+        echo $edate nextdns failed try:${tries} >> /data/logs/nextdns.log
 	sleep 15
-	if [ "$tries" >= "20" ]; then
+	if [ $tries -ge 20 ]; then
 		exit
 	fi
 	checkthis
