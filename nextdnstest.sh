@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# 2.0.2
+# 2.0.5
 
-# Check to see if nextDNS is running and alert if not. 
+#  Check to see if nextDNS is running and alert if not. 
 # file goes in: /data/nextdnstest.sh
 # DNS over HTTPS must be disabled in Firewalla app
 
@@ -15,7 +15,7 @@ URL="http://pi.hole/admin" # opens the firewalla app on iOS
 name=$(redis-cli get groupName)
 name="$(echo $name | sed -e "s|’|'|")"
 edate=$(date +'%a %b %d %H:%M:%S %Z %Y')
-json='{"value1":"nextDNS on '$name' is not running @ '$edate'.","value2":"'$URL'","value3":"'$IMAGE'"}'
+tries=0
 
 # Install Script if not installed. 
 install=/home/pi/.firewalla/config/post_main.d/install_nextdnscli.sh 
@@ -63,11 +63,20 @@ checkthis () {
 
 checkthis 
 while [  "$status" != "running" ]; do
-        sudo nextdns restart 
-        echo $edate nextdns failed >> /data/logs/nextdns.log
-        pushAlert $URL $IMAGE
-        sleep 10
-        checkthis
+	tries=$(expr $tries + 1)
+	echo $tries
+	json='{"value1":"nextDNS on '$name' is not running @ '$edate'. '$tries' tries","value2":"'$URL'","value3":"'$IMAGE'"}'
+	sudo nextdns restart 
+	echo restarting... 
+        echo $edate nextdns failed try:${tries} >> /data/logs/nextdns.log
+        pushAlert $URL $IMAGE $i
+	sleep 15
+	if [ "$tries" >= "20" ]; then
+		exit
+	fi
+	checkthis
 done
 
-echo "✅  all tests complete"
+if [  "$status" != "running" ]; then
+	echo "✅  all tests complete"
+fi
