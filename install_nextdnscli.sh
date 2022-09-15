@@ -1,4 +1,4 @@
-#!/bin/bash
+!/bin/bash
 
 # 2.0.4
 # Based on a script by Brian Curtis 
@@ -47,20 +47,31 @@ fi
 
 # install NextDNS CLI
 if [ -z "$(command -v nextdns)" ] ; then 
-	sudo wget -qO /usr/share/keyrings/nextdns.gpg https://repo.nextdns.io/nextdns.gpg
-	echo "deb [signed-by=/usr/share/keyrings/nextdns.gpg] https://repo.nextdns.io/deb stable main" | sudo tee /etc/apt/sources.list.d/nextdns.list
-	unalias apt
-	sudo apt update
-	sudo apt install nextdns
+        sudo wget -qO /usr/share/keyrings/nextdns.gpg https://repo.nextdns.io/nextdns.gpg
+        echo "deb [signed-by=/usr/share/keyrings/nextdns.gpg] https://repo.nextdns.io/deb stable main" | sudo tee /etc/apt/sources.list.d/nextdns.list
+        unalias apt
+        sudo apt update
+        sudo apt install nextdns
 else
-	echo "nextdns already installed..."
+        echo "nextdns already installed..."
 fi
 
 # enable NextDNS caching: https://github.com/nextdns/nextdns/wiki/Cache-Configuration
 # set discovery-dns to IP of Firewalla local DNS
 # set NextDNS CLI to listen on local network IP (instead of 127.0.0.1 -- allows DHCP host resolution in NextDNS logs)
 # define listen port instead of relying on -setup-router
-sudo nextdns install -config $id -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns $IP -listen ${IP}:5555
+# sudo nextdns install -config $id -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns $IP/24 -listen ${IP}:5555
+
+sudo nextdns install \
+-config ${IP}/24=${id} \
+-config -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns ${IP} -listen ${IP}:5555 
+# Note if you want to add additional IP ranges or mac addressses stick them all together first, followed by the 
+# -report-client-info line. For example: 
+# -config 12:99:41:ff:59:1a=${idm} \
+
+sudo nextdns restart
+
+# sudo nextdns install -config $id -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns $IP -listen ${IP}:5555
 
 # alternate command to implement conditional configuration: https://github.com/nextdns/nextdns/wiki/Conditional-Configuration
 # sudo nextdns install -config $IP/24=abcdef -config 123456 -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns 10.10.12.1 -listen 10.10.12.1:5555
