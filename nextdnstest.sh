@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 2.1.0
+# 2.1.1
 
 #  Check to see if nextDNS is running and alert if not. 
 # file goes in: /data/nextdnstest.sh
@@ -51,6 +51,15 @@ if [ "$(command -v nextdns)" != "/usr/bin/nextdns" ] ; then
         curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh | cat <(cat <(bash))
 else
         echo "✅  nextdns is installed."
+	current="$(curl -sL https://api.github.com/repos/nextdns/nextdns/releases/latest  | jq -r '.tag_name' | sed -e 's/v//g')"
+	installed=$(sudo nextdns version | cut -f3 -d' ')
+	if [ "$installed" != "$current" ]; then
+		echo "nextdns update available!"
+		sudo nextdns upgrade
+		echo "$edate next dns has been updated from $installed to $current" >> $logs
+	else
+		echo "✅  nextdns is up to date"
+	fi
 fi
 
 checkthis () {
@@ -80,16 +89,4 @@ done
 
 if [  "$status" != "running" ]; then
 	echo "✅  all tests complete"
-fi
-
-current="$(curl -sL https://api.github.com/repos/nextdns/nextdns/releases/latest  | jq -r '.tag_name' | sed -e 's/v//g')"
-echo $current 
-installed=$(sudo nextdns version | cut -f3 -d' ')
-echo $installed
-if [ "$installed" != "$current" ]; then
-	echo "nextdns update available!"
-	sudo nextdns upgrade
-	echo "$edate next dns has been updated from $installed to $current" >> $logs
-else
-	echo "✅  nextdns is up to date"
 fi
