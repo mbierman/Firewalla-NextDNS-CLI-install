@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 2.1.1
+# 2.1.2
 
 #  Check to see if nextDNS is running and alert if not. 
 # file goes in: /data/nextdnstest.sh
@@ -12,7 +12,7 @@ logs=/data/logs/nextdns.log
 IFTTTKEY="$(cat $dir/nextdnsdata.txt | grep IFTTTKEY | cut -f2 -d "=" )"
 IFTTTrigger="$(cat $dir/nextdnsdata.txt | grep IFTTTTrigger | cut -f2 -d "=" )"
 IMAGE="https://icons-for-free.com/download-icon-nextdns-1330289847268527500_256.png"
-URL="http://pi.hole/admin" # opens the firewalla app on iOS 
+URL="https://my.nextdns.io" 
 name=$(redis-cli get groupName)
 name="$(echo $name | sed -e "s|’|'|")"
 edate=$(date +'%a %b %d %H:%M:%S %Z %Y')
@@ -55,6 +55,8 @@ else
 	installed=$(sudo nextdns version | cut -f3 -d' ')
 	if [ "$installed" != "$current" ]; then
 		echo "nextdns update available!"
+		json='{"value1":"nextDNS updated on '$name' @ '$edate' from '$installed' to '$current'","value2":"'$URL'","value3":"'$IMAGE'"}'
+        	pushAlert $URL $IMAGE $i
 		sudo nextdns upgrade
 		echo "$edate next dns has been updated from $installed to $current" >> $logs
 	else
@@ -73,11 +75,11 @@ checkthis () {
 
 checkthis 
 while [  "$status" != "running" ]; do
-	tries=$(expr $tries + 1)
-	echo $tries
-	json='{"value1":"nextDNS on '$name' is not running @ '$edate'. '$tries' tries","value2":"'$URL'","value3":"'$IMAGE'"}'
-	sudo nextdns restart 
 	echo restarting... 
+	tries=$(expr $tries + 1)
+	echo $tries tries
+	sudo nextdns restart 
+	json='{"value1":"nextDNS on '$name' is not running @ '$edate'. '$tries' tries","value2":"'$URL'","value3":"'$IMAGE'"}'
         pushAlert $URL $IMAGE $i
         echo $edate nextdns failed try:${tries} >> $logs
 	sleep 15
@@ -87,6 +89,7 @@ while [  "$status" != "running" ]; do
 	checkthis
 done
 
-if [  "$status" != "running" ]; then
+if [  "$status" = "running" ]; then
 	echo "✅  all tests complete"
+	exit
 fi
