@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 2.0.6
+# 2.1.0
 
 #  Check to see if nextDNS is running and alert if not. 
 # file goes in: /data/nextdnstest.sh
@@ -8,6 +8,7 @@
 
 # no need to edit these
 dir=$(dirname "$0")
+logs=/data/logs/nextdns.log
 IFTTTKEY="$(cat $dir/nextdnsdata.txt | grep IFTTTKEY | cut -f2 -d "=" )"
 IFTTTrigger="$(cat $dir/nextdnsdata.txt | grep IFTTTTrigger | cut -f2 -d "=" )"
 IMAGE="https://icons-for-free.com/download-icon-nextdns-1330289847268527500_256.png"
@@ -69,7 +70,7 @@ while [  "$status" != "running" ]; do
 	sudo nextdns restart 
 	echo restarting... 
         pushAlert $URL $IMAGE $i
-        echo $edate nextdns failed try:${tries} >> /data/logs/nextdns.log
+        echo $edate nextdns failed try:${tries} >> $logs
 	sleep 15
 	if [ $tries -ge 20 ]; then
 		exit
@@ -79,4 +80,16 @@ done
 
 if [  "$status" != "running" ]; then
 	echo "✅  all tests complete"
+fi
+
+current="$(curl -sL https://api.github.com/repos/nextdns/nextdns/releases/latest  | jq -r '.tag_name' | sed -e 's/v//g')"
+echo $current 
+installed=$(sudo nextdns version | cut -f3 -d' ')
+echo $installed
+if [ "$installed" != "$current" ]; then
+	echo "nextdns update available!"
+	sudo nextdns upgrade
+	echo "$edate next dns has been updated from $installed to $current" >> $logs
+else
+	echo "✅  nextdns is up to date"
 fi
