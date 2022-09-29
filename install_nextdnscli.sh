@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 
 # 2.0.5
 # Based on a script by Brian Curtis 
@@ -8,11 +8,20 @@
 # file goes in: /home/pi/.firewalla/config/post_main.d/
 # DNS over HTTPS must be disabled in Firewalla app
 
+if [ -f /data/stopnextdns ] ; then
+        echo "❌  No nextDNS" 
+        exit
+fi
+
 
 # set id with your own NextDNS config ID
 # set IP with your Firewalla local lan IP
-id=
+id=42eadb
 IP=
+VPNID=
+OpenVPN=
+WireGuard=
+appletvid=
 
 # check for configuration
 if [[ -z $id ]] ; then
@@ -30,9 +39,9 @@ install=/home/pi/.firewalla/config/post_main.d/install_nextdnscli.sh
 if [ ! -f "$install" ] ; then
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh > $install
         chmod +x $install
-        echo "install saved."
+        echo "✅  install saved."
 else
-        echo "install in place. "
+        echo "✅  install in place. "
 fi
 
 # Install Uninstall script if not installed
@@ -40,20 +49,20 @@ uninstall=/home/pi/.firewalla/config/post_main.d/uninstall_nextdnscli.nosh
 if [ ! -f "$uninstall" ] ; then
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/uninstall_nextdns_cli.nosh > $uninstall
         chmod +x $uninstall
-        echo "uninstall saved."
+        echo "✅  uninstall saved."
 else
-        echo "uninstall in place"
+        echo "✅  uninstall in place.."
 fi
 
 # install NextDNS CLI
 if [ -z "$(command -v nextdns)" ] ; then 
-        sudo wget -qO /usr/share/keyrings/nextdns.gpg https://repo.nextdns.io/nextdns.gpg
-        echo "deb [signed-by=/usr/share/keyrings/nextdns.gpg] https://repo.nextdns.io/deb stable main" | sudo tee /etc/apt/sources.list.d/nextdns.list
-        unalias apt
-        sudo apt update
-        sudo apt install nextdns
+	sudo wget -qO /usr/share/keyrings/nextdns.gpg https://repo.nextdns.io/nextdns.gpg
+	echo "deb [signed-by=/usr/share/keyrings/nextdns.gpg] https://repo.nextdns.io/deb stable main" | sudo tee /etc/apt/sources.list.d/nextdns.list
+	unalias apt
+	sudo apt update
+	sudo apt install nextdns
 else
-        echo "nextdns already installed..."
+	echo "✅  nextdns already installed..."
 fi
 
 # enable NextDNS caching: https://github.com/nextdns/nextdns/wiki/Cache-Configuration
@@ -64,10 +73,12 @@ fi
 
 sudo nextdns install \
 -config ${IP}/24=${id} \
+-config $OpenVPN/24=$VPNID \
+-config $WireGuard/24=$VPNID \
 -config -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns ${IP} -listen ${IP}:5555 
-# Note if you want to add additional IP ranges or mac addressses stick them all together first, followed by the 
-# -report-client-info line. For example: 
-# -config 12:99:41:ff:59:1a=${idm} \
+# You can also put a config for an individual mac address like so. 
+# -config xx:yy:zz:aa:bb:cc=${id} \
+
 
 sudo nextdns restart
 
@@ -94,9 +105,9 @@ nextdnstest=/data/nextdnstest.sh
 if [ ! -f "$nextdnstest" ] ; then
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnstest.sh > $nextdnstest
         chmod +x $nextdnstest
-        echo "test saved."
+        echo "✅  test saved."
 else
-        echo "test in place."
+        echo "✅  test in place."
 fi
 
 # Install data for IFTTT notification
@@ -104,7 +115,7 @@ nextdnsdata=/data/nextdnsdata.txt
 if [ ! -f "$nextdnsdata" ] ; then
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnsdata.txt > $nextdnsdata
         chmod +x $nextdnsdata
-        echo "data saved."
+        echo "✅  data saved."
 else
-        echo "data in place."
+        echo "✅  data in place."
 fi
