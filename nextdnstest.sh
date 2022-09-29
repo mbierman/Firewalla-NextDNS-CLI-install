@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 2.1.2
+# 2.1.3
 
 #  Check to see if nextDNS is running and alert if not. 
 # file goes in: /data/nextdnstest.sh
@@ -8,6 +8,7 @@
 
 # no need to edit these
 dir=$(dirname "$0")
+nextbinary="/usr/bin/nextdns"
 logs=/data/logs/nextdns.log
 IFTTTKEY="$(cat $dir/nextdnsdata.txt | grep IFTTTKEY | cut -f2 -d "=" )"
 IFTTTrigger="$(cat $dir/nextdnsdata.txt | grep IFTTTTrigger | cut -f2 -d "=" )"
@@ -17,6 +18,11 @@ name=$(redis-cli get groupName)
 name="$(echo $name | sed -e "s|’|'|")"
 edate=$(date +'%a %b %d %H:%M:%S %Z %Y')
 tries=0
+
+if [ -f /data/stopnextdns ] ; then
+	echo "No nextDNS" 
+	exit
+fi
 
 # Install Script if not installed. 
 install=/home/pi/.firewalla/config/post_main.d/install_nextdnscli.sh 
@@ -52,12 +58,12 @@ if [ "$(command -v nextdns)" != "/usr/bin/nextdns" ] ; then
 else
         echo "✅  nextdns is installed."
 	current="$(curl -sL https://api.github.com/repos/nextdns/nextdns/releases/latest  | jq -r '.tag_name' | sed -e 's/v//g')"
-	installed=$(sudo nextdns version | cut -f3 -d' ')
+	installed=$(sudo $nextbinary version | cut -f3 -d' ')
 	if [ "$installed" != "$current" ]; then
 		echo "nextdns update available!"
 		json='{"value1":"nextDNS updated on '$name' @ '$edate' from '$installed' to '$current'","value2":"'$URL'","value3":"'$IMAGE'"}'
         	pushAlert $URL $IMAGE $i
-		sudo nextdns upgrade
+		sudo $nextbinary upgrade
 		echo "$edate next dns has been updated from $installed to $current" >> $logs
 	else
 		echo "✅  nextdns is up to date"
@@ -65,7 +71,7 @@ else
 fi
 
 checkthis () {
-        status="$(sudo nextdns status)"
+        status="$(sudo $nextbinary status)"
         if [ "$status" != "running" ]; then
                 echo "❌  not running"
         else
@@ -78,7 +84,7 @@ while [  "$status" != "running" ]; do
 	echo restarting... 
 	tries=$(expr $tries + 1)
 	echo $tries tries
-	sudo nextdns restart 
+	sudo $nextbinary restart 
 	json='{"value1":"nextDNS on '$name' is not running @ '$edate'. '$tries' tries","value2":"'$URL'","value3":"'$IMAGE'"}'
         pushAlert $URL $IMAGE $i
         echo $edate nextdns failed try:${tries} >> $logs
