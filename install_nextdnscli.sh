@@ -16,7 +16,7 @@ fi
 
 # set id with your own NextDNS config ID
 # set IP with your Firewalla local lan IP
-id=42eadb
+id=
 IP=
 VPNID=
 OpenVPN=
