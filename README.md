@@ -13,8 +13,6 @@ This is a script for installing NextDNS CLI container on Firewalla Gold or Purpl
 
 - You cannot use Firewalla DoH and NextDNS CLI.
 
-# Known issue
-The monitoring script seems to confict with Firewalla and it will often restart nextdns unnecessarily. As a result, I suggest not using the the testing script for the time being until I can figure this out. 
 
 # Installation
 To install:
@@ -78,6 +76,10 @@ Great resource for [all things NextDNS CLI](https://github.com/NextDNS/NextDNS/w
 **Standard disclaimer:** I can not be responsible for any issues that may result. Nothing in the script should in any way, affect firewalla as a router or comprimise security. Happy to answer questions though if I can. :)
 
 # Monitoring
+
+## Known issue
+The monitoring script seems to confict with Firewalla and it will often restart nextdns unnecessarily. As a result, I suggest not using the the testing script for the time being until I can figure this out. 
+
 You can use the following to run a test to make sure nextDNS is running and log to `/data/logs/nextdns.log` any errors.
 
 If you want to run the monitor automatically, you can add the following line to `/home/pi/.firewalla/config/user_crontab` and restart Firealla. From then on, every 5 minutes the test will check to see if nextDNS is running on Fireawlla. 
