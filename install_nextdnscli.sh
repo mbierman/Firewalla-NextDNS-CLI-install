@@ -51,10 +51,10 @@ fi
 
 # check for configuration
 if [[ -z $id ]] ; then
-        echo -e "Your nextdns ID is not set.\nEdit using your favorite editor (vi or nano are already installed on Firewalla) run $install and run."
+        echo -e "Your nextdns ID is not set.\nEdit using your favorite editor (vi is already installed on Firewalla) run $install and run."
         exit
 elif [[ -z $IP ]] ; then
-        echo -e "Your Firewalla IP is not set.\nEdit using your favorite editor (vi or nanao are already installed on Firewalla) and run $install ."
+        echo -e "Your Firewalla IP is not set.\nEdit using your favorite editor (vi is already installed on Firewalla) and run $install ."
         exit
 else
         echo -e "Fully configured and ready to go!\n\n"
