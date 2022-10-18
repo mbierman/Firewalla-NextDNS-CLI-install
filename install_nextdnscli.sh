@@ -80,11 +80,11 @@ else
         echo "✅  uninstall in place.."
 fi
 # install NextDNS CLI
-if [ -z "$(command -v nextdns)" ] ; then 
+if [ -z "$(command -v nextdns)" ] ; then
+        unalias apt
 	sudo apt install ca-certificates
 	sudo wget -qO /usr/share/keyrings/nextdns.gpg https://repo.nextdns.io/nextdns.gpg
 	echo "deb [signed-by=/usr/share/keyrings/nextdns.gpg] https://repo.nextdns.io/deb stable main" | sudo tee /etc/apt/sources.list.d/nextdns.list
-	unalias apt
 	sudo apt update
 	sudo apt install nextdns
 else
