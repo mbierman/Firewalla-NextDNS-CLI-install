@@ -10,12 +10,13 @@
 
 # set id with your own NextDNS config ID
 # set IP with your Firewalla local lan IP
-id=42eadb
-IP=192.168.0.1
-VPNID=f1273e
-OpenVPN=10.128.98.1
-WireGuard=10.189.55.1
-appletvid=7c6a43
+id=
+IP=
+# These are optional. It is currently set up to use the same VPNID for WireGuard and OpenVPN. 
+VPNID=
+# Put your OpenVPN and WireGuard IP ranges here. 
+OpenVPN=
+WireGuard=
 
 install=/home/pi/.firewalla/config/post_main.d/install_nextdnscli.sh 
 
