@@ -97,15 +97,8 @@ add-mac
 add-subnet=32,128
 EOF
 
-echo -e "\nStarting nextdns...\n\n"
-
 sudo nextdns install \
--config C8:D0:83:E3:2C:21=$appletvid \
--config C8:D0:83:D7:7A:6E=$appletvid \
--config C8:D0:83:DD:09:2C=$appletvid \
 -config ${IP}/24=${id} \
--config $OpenVPN/24=$VPNID \
--config $WireGuard/24=$VPNID \
 -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns ${IP} -listen ${IP}:5555 
 
 # enable NextDNS caching: https://github.com/nextdns/nextdns/wiki/Cache-Configuration
@@ -113,9 +106,19 @@ sudo nextdns install \
 # set NextDNS CLI to listen on local network IP (instead of 127.0.0.1 -- allows DHCP host resolution in NextDNS logs)
 # define listen port instead of relying on -setup-router
 # sudo nextdns install -config $id -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns $IP/24 -listen ${IP}:5555
-# You can also put a config for an individual mac address like so. 
+
+# You can also put a config for an individual mac address like so. Edit to include your actual mac addres and
+# put thse before the config above.
 # -config xx:yy:zz:aa:bb:cc=${id} \
 
+# you can use nextdns on OpenVPN or WireGuard Put thse before the config above.
+# -config $OpenVPN/24=$VPNID \
+# -config $WireGuard/24=$VPNID \
+
+# sudo nextdns install -config $id -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns $IP -listen ${IP}:5555
+
+# alternate command to implement conditional configuration: https://github.com/nextdns/nextdns/wiki/Conditional-Configuration
+# sudo nextdns install -config $IP/24=abcdef -config 123456 -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns 10.10.12.1 -listen 10.10.12.1:5555
 
 # Add dnsmasq integration to enable client reporting in NextDNS logs: https://github.com/nextdns/nextdns/wiki/DNSMasq-Integration
 
