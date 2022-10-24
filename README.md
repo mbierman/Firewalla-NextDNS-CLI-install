@@ -29,12 +29,21 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-
    ```
    vi /home/pi/.firewalla/config/post_main.d/install_nextdnscli.sh
    ```
-   
-4. If you want to get notifications when nextDNS is not running, edit `/data/nextdnsdata.txt` to include your IFTTT API key (_optional_)
+
+4. After editing, run the script 
+
+```
+/home/pi/.firewalla/config/post_main.d/install_nextdnscli.sh
+```
+
+
+5. If you want to get notifications when nextDNS is not running, edit `/data/nextdnsdata.txt` to include your IFTTT API key (_optional_)
 
    ```
    vi /data/nextdnsdata.txt
    ```
+
+
    
 
 # Testing
