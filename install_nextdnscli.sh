@@ -61,7 +61,7 @@ else
 fi
 
 # Install Uninstall script if not installed
-uninstall=/home/pi/.firewalla/config/post_main.d/uninstall_nextdnscli.nosh 
+uninstall=/home/pi/.firewalla/config/post_main.d/uninstall_nextdnscli.nosh
 if [ ! -f "$uninstall" ] ; then
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/uninstall_nextdns_cli.nosh > $uninstall
         chmod +x $uninstall
@@ -73,7 +73,7 @@ fi
 
 # check for configuration
 if [[ -z $id ]] ; then
-        echo -e "Your nextdns ID is not set.\nEdit using your favorite editor (vi is already installed on Firewalla) run $install and run."
+        echo -e "Your nextdns ID is not set.\nEdit using your favorite editor (vi is already installed on Firewalla\n\n.  vi https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh\n\n then run\n $ $install."
         exit
 elif [[ -z $IP ]] ; then
         echo -e "Your Firewalla IP is not set.\nEdit using your favorite editor (vi is already installed on Firewalla) and run $install ."
