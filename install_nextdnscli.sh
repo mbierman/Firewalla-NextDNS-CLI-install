@@ -51,17 +51,6 @@ else
 fi
 
 
-# check for configuration
-if [[ -z $id ]] ; then
-        echo -e "Your nextdns ID is not set.\nEdit using your favorite editor (vi is already installed on Firewalla) run $install and run."
-        exit
-elif [[ -z $IP ]] ; then
-        echo -e "Your Firewalla IP is not set.\nEdit using your favorite editor (vi is already installed on Firewalla) and run $install ."
-        exit
-else
-        echo -e "Fully configured and ready to go!\n\n"
-fi
-
 # Install script if not installed. 
 if [ ! -f "$install" ] ; then
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh > $install
@@ -80,6 +69,20 @@ if [ ! -f "$uninstall" ] ; then
 else
         echo "✅  uninstall in place.."
 fi
+
+
+# check for configuration
+if [[ -z $id ]] ; then
+        echo -e "Your nextdns ID is not set.\nEdit using your favorite editor (vi is already installed on Firewalla) run $install and run."
+        exit
+elif [[ -z $IP ]] ; then
+        echo -e "Your Firewalla IP is not set.\nEdit using your favorite editor (vi is already installed on Firewalla) and run $install ."
+        exit
+else
+        echo -e "Fully configured and ready to go!\n\n"
+fi
+
+
 # install NextDNS CLI
 if [ -z "$(command -v nextdns)" ] ; then
         unalias apt
