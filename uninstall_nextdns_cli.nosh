@@ -1,5 +1,5 @@
 #!/bin/bash
-# v 2.1
+# v 3.0
 # Michael Bierman
 # https://github.com/mbierman/Firewalla-NextDNS-CLI-install
 
@@ -11,6 +11,8 @@ if [ ! -f "$uninstall" ] ; then
 else
         echo uninstall in place
 fi
+
+echo 3.0
 
 # uninstall configure NextDNS CLI on startup of Firewalla
 # file goes in: /home/pi/.firewalla/config/post_main.d/
@@ -40,6 +42,9 @@ fi
 if [ -f "/etc/systemd/system/nextdns.service" ]; then
         rm -vi /etc/systemd/system/nextdns.service
 fi
+
+sudo nextdns uninstall
+unalias apt &&  sudo apt remove nextdns 
 
 # restart Firewalla DNS service
 sudo systemctl restart firerouter_dns.service
