@@ -27,7 +27,9 @@ fi
 
 DIR="/home/pi/.firewalla/config/post_main.d"
 if [ ! -d  $DIR ]; then
-	mkdir /home/pi/.firewalla/config/post_main.d 
+	mkdir $DIR
+	chown pi $DIR
+	chown 764 $DIR
 fi
 
 # Install validation Script if not installed. 
