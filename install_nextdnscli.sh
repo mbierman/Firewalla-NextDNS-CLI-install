@@ -29,7 +29,7 @@ DIR="/home/pi/.firewalla/config/post_main.d"
 if [ ! -d  $DIR ]; then
 	mkdir $DIR
 	chown pi $DIR
-	chown 764 $DIR
+	chmod 777 $DIR
 fi
 
 # Install validation Script if not installed. 
@@ -46,7 +46,7 @@ fi
 nextdnsdata=/data/nextdnsdata.txt
 if [ ! -f "$nextdnsdata" ] ; then
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnsdata.txt > $nextdnsdata
-        chmod +x $nextdnsdata
+        chmod +rw $nextdnsdata
         echo "✅  data saved."
 else
         echo "✅  data in place."
