@@ -29,6 +29,10 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-
    ```
    vi /home/pi/.firewalla/config/post_main.d/install_nextdnscli.sh
    ```
+   
+   Note you can set up different devices using different nextDNS configurations including VPN connections. For example, I have Apple TVs in a different nextDNS configration so I can tune them.  Simply add a line like this: 
+   
+   -config macaddress=nextdnsconfiguration ID \
 
 4. After editing, run the script 
 
@@ -44,7 +48,6 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-
    ```
 
 
-   
 
 # Testing
 After completing the steps above, you can: 
