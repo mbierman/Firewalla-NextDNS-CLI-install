@@ -104,6 +104,13 @@ You can also send a notification via IFTT. This requires IFTTT to send the notif
 ### Known issue
 The monitoring script seems to confict with Firewalla and it will often restart nextdns unnecessarily. As a result, I suggest not using the the testing script for the time being until I can figure this out. 
 
+# Pausing
+You can temporarily stop nextdns for testing etc. without uninstalltalling it. Simply run this file (or the commands in it). 
+
+[nextdnsstop.sh](https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnsstop.sh)
+ 
+ To Resume nextdns CLI, simply re-run the install script. Don't worry anything in place will be skipped and everything will restart and should be good. Nothing will be lost. 
+
 # Uninstalling
 
 You can run this by copying this line and run it on firewalla to uninstall. 
