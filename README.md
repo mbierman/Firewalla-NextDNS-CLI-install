@@ -5,7 +5,7 @@ This is a script for installing NextDNS CLI container on Firewalla Gold or Purpl
 
 # Notes
 - NextDNS CLI runs fine on Purple or Gold (I hve not tested anywhere else).
-- NextDNS CLI runs nicely with Firewalla Unbound, but so far it I have not been successful in getting it to work with Firewalla DNS over HTTP (DoH) but NextDNS CLI uses DoH. 
+- You can run NextDNS CLI and you can have Firewalla Unbound or DoH running, but any given client can only use one of these as they are mutually exclusive. By default, any device that is not in the Unbound or DoH group will use nextDNS CLI for any network segment that is set to use nextDNS and the WAN DNS will be ignored.  
 
 - Pros: 
    * Running NextDNS CLI as opposed to using Firewalla DoH > NextDNS, you can have DoH betwen FW and NextDNS and it shows individual client devices, not just your firewalla making all the requests. Less anonymous to be sure, but if you want to look at logs by device, that is handy. Note, it seems that is by IP (not mac address of course) so you may end up with the same device entered many times. :( I haven't found a solution to that yet. You can of course, always disable NextDNS logs if you like. 
