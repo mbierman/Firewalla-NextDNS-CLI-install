@@ -45,7 +45,7 @@ if [ -f "/etc/systemd/system/nextdns.service" ]; then
         sudo rm -vi /etc/systemd/system/nextdns.service
 fi
 
-unalias apt && sudo apt remove nextdns 
+unalias -a apt && sudo apt remove nextdns 
 
 # restart Firewalla DNS service
 sudo systemctl restart firerouter_dns.service
