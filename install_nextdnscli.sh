@@ -47,11 +47,11 @@ fi
 # Install data for IFTTT notification
 nextdnsdata=/data/nextdnsdata.txt
 if [ ! -f "$nextdnsdata" ] ; then
-	# sudo touch $nextdnsdata
-        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnsdata.txt >> $nextdnsdata
+	sudo touch $nextdnsdata
 	sudo chown pi  $nextdnsdata
 	sudo chmod +xrw $nextdnsdata
         echo "✅  data saved."
+        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnsdata.txt >> $nextdnsdata
 else
         echo "✅  data in place."
 fi
