@@ -36,6 +36,7 @@ fi
 nextdnstest=/data/nextdnstest.sh
 if [ ! -f "$nextdnstest" ] ; then
 	sudo touch $nextdnstest
+	sudo chown pi $nextdnstest
 	sudo chmod +wx $nextdnstest
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnstest.sh > $nextdnstest
         chmod +wx $nextdnstest
