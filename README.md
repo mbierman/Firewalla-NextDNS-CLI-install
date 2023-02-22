@@ -115,7 +115,7 @@ You can temporarily stop nextdns for testing etc. without uninstalltalling it. S
 
 You can run this by copying this line and run it on firewalla to uninstall. 
 ```
-curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/uninstall_NextDNS_CLI.nosh | cat <(cat <(bash))
+curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/uninstall_nextdns_cli.nosh | cat <(cat <(bash))
 ```
 
 This script will also be saved when you install and you can just run it locally:
