@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 2.2.0
+# 2.3.0
 # Based on a script by Brian Curtis 
 # https://help.firewalla.com/hc/en-us/community/posts/7469669689619-NextDNS-CLI-on-Firewalla-revisited-working-DHCP-host-resolution-in-NextDNS-logs-
 
@@ -35,11 +35,10 @@ fi
 # Install validation Script if not installed. 
 nextdnstest=/data/nextdnstest.sh
 if [ ! -f "$nextdnstest" ] ; then
-	sudo touch $nextdnstest
+	# sudo touch $nextdnstest
+        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnstest.sh > $nextdnstest
 	sudo chown pi $nextdnstest
 	sudo chmod +wx $nextdnstest
-        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnstest.sh > $nextdnstest
-        chmod +wx $nextdnstest
         echo "✅  test saved."
 else
         echo "✅  test in place."
@@ -48,11 +47,10 @@ fi
 # Install data for IFTTT notification
 nextdnsdata=/data/nextdnsdata.txt
 if [ ! -f "$nextdnsdata" ] ; then
-	sudo touch $nextdnsdata
-	sudo chown pi $nextdnsdata
+	# sudo touch $nextdnsdata
+        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnsdata.txt >> $nextdnsdata
+	sudo chown pi  $nextdnsdata
 	sudo chmod +xw $nextdnsdata
-        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnsdata.txt > $nextdnsdata
-        chmod +rw $nextdnsdata
         echo "✅  data saved."
 else
         echo "✅  data in place."
@@ -61,7 +59,7 @@ fi
 
 # Install script if not installed. 
 if [ ! -f "$install" ] ; then
-        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh > $install
+        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh >> $install
         chmod +x $install
 	chown pi $DIR
         echo "✅  install saved."
@@ -82,7 +80,7 @@ fi
 
 # check for configuration
 if [[ -z $id ]] ; then
-        echo -e "Your nextdns ID is not set.\nEdit using your favorite editor (vi is already installed on Firewalla\n\n   vi https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh\n\n then run\n $ $install"
+        echo -e "Your nextdns ID is not set.\nEdit using your favorite editor (vi is already installed on Firewalla\n\n   vi $nextdnstest \n\n then run\n $ $install"
         exit
 elif [[ -z $IP ]] ; then
         echo -e "Your Firewalla IP is not set.\nEdit using your favorite editor (vi is already installed on Firewalla) and run $install ."
