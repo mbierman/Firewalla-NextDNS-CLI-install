@@ -28,7 +28,7 @@ fi
 install=/home/pi/.firewalla/config/post_main.d/install_nextdnscli.sh 
 if [ ! -f "$install" ] ; then
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh > $install
-        chmod +x $install
+        chmod +wx $install
         echo "✅  install saved."
 else
         echo "✅  install is installed."
