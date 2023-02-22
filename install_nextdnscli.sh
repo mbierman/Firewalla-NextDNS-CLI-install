@@ -47,7 +47,7 @@ fi
 # Install data for IFTTT notification
 nextdnsdata=/data/nextdnsdata.txt
 if [ ! -f "$nextdnsdata" ] ; then
-	sudo touch $nextdnsdata
+	sudo touch $nextdnsdata 
 	sudo chmod +xrw $nextdnsdata
 	sudo chown pi $nextdnsdata
         echo "✅  data saved."
