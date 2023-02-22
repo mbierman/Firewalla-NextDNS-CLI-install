@@ -35,10 +35,10 @@ fi
 # Install validation Script if not installed. 
 nextdnstest=/data/nextdnstest.sh
 if [ ! -f "$nextdnstest" ] ; then
-	# sudo touch $nextdnstest
-        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnstest.sh > $nextdnstest
+	sudo touch $nextdnstest
 	sudo chown pi $nextdnstest
 	sudo chmod +wrx $nextdnstest
+        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnstest.sh > $nextdnstest
         echo "✅  test saved."
 else
         echo "✅  test in place."
