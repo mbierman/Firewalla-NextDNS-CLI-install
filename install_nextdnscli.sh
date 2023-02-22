@@ -48,8 +48,8 @@ fi
 nextdnsdata=/data/nextdnsdata.txt
 if [ ! -f "$nextdnsdata" ] ; then
 	sudo touch $nextdnsdata
-	sudo chown pi  $nextdnsdata
 	sudo chmod +xrw $nextdnsdata
+	sudo chown pi $nextdnsdata
         echo "✅  data saved."
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnsdata.txt >> $nextdnsdata
 else
