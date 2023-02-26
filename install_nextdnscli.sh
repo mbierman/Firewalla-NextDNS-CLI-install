@@ -95,7 +95,7 @@ fi
 
 # check for configuration
 if [[ -z $id ]] ; then
-        echo -e "Your nextdns ID is not set.\nEdit using your favorite editor (vi is already installed on Firewalla\n\n \$ vi $file \n\n then run\n \$ $install"
+        echo -e "Your nextdns ID is not set.\nEdit using your favorite editor (vi is already installed on Firewalla\n\n \$ vi $file \n\n then run\n \$ $file"
         exit
 elif [[ -z $IP ]] ; then
         echo -e "Your Firewalla IP is not set.\nEdit using your favorite editor (vi is already installed on Firewalla) and run $file ."
