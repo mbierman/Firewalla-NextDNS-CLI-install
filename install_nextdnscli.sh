@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# 2.4.0
+# 2.5.0
 # Based on a script by Brian Curtis 
 # https://help.firewalla.com/hc/en-us/community/posts/7469669689619-NextDNS-CLI-on-Firewalla-revisited-working-DHCP-host-resolution-in-NextDNS-logs-
 
-# install & configure NextDNS CLI on startup of Firewalla
+# install & configure NextDNS CLI on startup of Firewalla:
 # file goes in: /home/pi/.firewalla/config/post_main.d/
 # DNS over HTTPS must be disabled in Firewalla app
 
@@ -12,13 +12,12 @@
 # set IP with your Firewalla local lan IP
 id=
 IP=
-# These are optional. It is currently set up to use the same VPNID for WireGuard and OpenVPN. 
-VPNID=
 # Put your OpenVPN and WireGuard IP ranges here. 
-OpenVPN=
-WireGuard=
-
-install=/home/pi/.firewalla/config/post_main.d/install_nextdnscli.sh 
+# These are optional. 
+OpenVPNID=
+OpenVPNIP=
+WireGuardID=
+WireGuardIP=
 
 if [ -f /data/stopnextdns ] ; then
         echo "❌  No nextDNS" 
@@ -32,73 +31,74 @@ if [ ! -d  $DIR ]; then
 	chmod 777 $DIR
 fi
 
-# Install validation Script if not installed. 
-nextdnstest=/data/nextdnstest.sh
+# Install validation script if not installed. 
+file=/data/nextdnstest.sh
 if [ ! -f "$nextdnstest" ] ; then
-	sudo touch $nextdnstest
-	sudo chown pi $nextdnstest
-	sudo chmod +wrx $nextdnstest
-        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnstest.sh > $nextdnstest
-        echo "✅  test saved."
+	sudo touch $file
+	sudo chown pi $file
+	sudo chmod +wx $file
+        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnstest.sh > $file
+        echo "✅ test saved."
 else
-        echo "✅  test in place."
+        echo "✅ test in place."
 fi
 
 # Install stop Script if not installed. 
-nextdnsstop=/data/nextdnsstop.sh
+file=/data/nextdnsstop.sh
 if [ ! -f "$nextdnstest" ] ; then
-	sudo touch $nextdnsstop
-	sudo chown pi $nextdnsstop
-	sudo chmod +wrx $nextdnsstop
-        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnsstop.sh > $nextdnstop
-        echo "✅  stop saved."
+	sudo touch $file
+	sudo chown pi $file
+	sudo chmod +wrx $file
+        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnsstop.sh > $file
+        echo "✅ stop saved."
 else
-        echo "✅  stop in place."
+        echo "✅ stop in place."
 fi
 
 # Install data for IFTTT notification
-nextdnsdata=/data/nextdnsdata.txt
+file=/data/nextdnsdata.txt
 if [ ! -f "$nextdnsdata" ] ; then
-	sudo touch $nextdnsdata 
-	sudo chmod +rw $nextdnsdata
-	sudo chown pi $nextdnsdata
-        echo "✅  data saved."
-        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnsdata.txt >> $nextdnsdata
+	sudo touch $file 
+	sudo chmod +rw $file
+	sudo chown pi $file
+        echo "✅ data saved."
+        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnsdata.txt >> $file
 else
-        echo "✅  data in place."
+        echo "✅ data in place."
 fi
 
-
-# Install script if not installed. 
-if [ ! -f "$install" ] ; then
-	touch $install
-	chown pi $DIR
-	chmod +xw $install
-        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh >> $install
-        echo "✅  install saved."
-else
-        echo "✅  install in place. "
-fi
 
 # Install Uninstall script if not installed
-uninstall=/home/pi/.firewalla/config/post_main.d/uninstall_nextdnscli.nosh
-if [ ! -f "$uninstall" ] ; then
-	touch $uninstall
-	chown pi $uninstall
-	chmod +xw $uninstall
-        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/uninstall_nextdns_cli.nosh > $uninstall
+file=/home/pi/.firewalla/config/post_main.d/uninstall_nextdnscli.nosh
+if [ ! -f "$file" ] ; then
+	touch $file
+	chown pi $file
+	chmod +xw $file
+        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/uninstall_nextdns_cli.nosh > $file
         echo "✅  uninstall saved."
 else
         echo "✅  uninstall in place.."
 fi
 
+# Install script if not installed. 
+file=/home/pi/.firewalla/config/post_main.d/install_nextdnscli.sh 
+if [ ! -f "$file" ] ; then
+	touch $file
+	chown pi $file
+	chmod +xw $file
+        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh >> $file
+        echo "✅  install saved."
+else
+        echo "✅  install in place. "
+fi
+
 
 # check for configuration
 if [[ -z $id ]] ; then
-        echo -e "Your nextdns ID is not set.\nEdit using your favorite editor (vi is already installed on Firewalla\n\n \$ vi $install \n\n then run\n \$ $install"
+        echo -e "Your nextdns ID is not set.\nEdit using your favorite editor (vi is already installed on Firewalla\n\n \$ vi $file \n\n then run\n \$ $install"
         exit
 elif [[ -z $IP ]] ; then
-        echo -e "Your Firewalla IP is not set.\nEdit using your favorite editor (vi is already installed on Firewalla) and run $install ."
+        echo -e "Your Firewalla IP is not set.\nEdit using your favorite editor (vi is already installed on Firewalla) and run $file ."
         exit
 else
         echo -e "Fully configured and ready to go!\n\n"
@@ -123,8 +123,9 @@ add-mac
 add-subnet=32,128
 EOF
 
+# Start nextDNS 
 sudo nextdns install \
--config $id
+-config $id \
 -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns ${IP} -listen ${IP}:5555 
 
 # IF you want to apply this to just one network put each network as follows (this one uses the variable IP defined above) 
@@ -140,13 +141,16 @@ sudo nextdns install \
 # -config xx:yy:zz:aa:bb:cc=${id} \
 
 # you can use nextdns on OpenVPN or WireGuard Put thse before the config above.
-# -config $OpenVPN/24=$VPNID \
-# -config $WireGuard/24=$VPNID \
+# -config $OpenVPNIP/24=$VPNID \
+# -config $WireGuardIP/24=$VPNID \
 
 # sudo nextdns install -config $id -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns $IP -listen ${IP}:5555
 
 # alternate command to implement conditional configuration: https://github.com/nextdns/nextdns/wiki/Conditional-Configuration
-# sudo nextdns install -config $IP/24=abcdef -config 123456 -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns 10.10.12.1 -listen 10.10.12.1:5555
+# sudo nextdns install \
+# -config $IP/24=abcdef \
+# -config 123456 \
+# -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns 10.10.12.1 -listen 10.10.12.1:5555
 
 # Add dnsmasq integration to enable client reporting in NextDNS logs: https://github.com/nextdns/nextdns/wiki/DNSMasq-Integration
 
