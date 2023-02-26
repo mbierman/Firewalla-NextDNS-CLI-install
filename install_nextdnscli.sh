@@ -60,7 +60,7 @@ fi
 nextdnsdata=/data/nextdnsdata.txt
 if [ ! -f "$nextdnsdata" ] ; then
 	sudo touch $nextdnsdata 
-	sudo chmod +xrw $nextdnsdata
+	sudo chmod +rw $nextdnsdata
 	sudo chown pi $nextdnsdata
         echo "✅  data saved."
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnsdata.txt >> $nextdnsdata
@@ -71,9 +71,10 @@ fi
 
 # Install script if not installed. 
 if [ ! -f "$install" ] ; then
-        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh >> $install
-        chmod +x $install
+	touch $install
 	chown pi $DIR
+	chmod +xw $install
+        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh >> $install
         echo "✅  install saved."
 else
         echo "✅  install in place. "
@@ -82,8 +83,10 @@ fi
 # Install Uninstall script if not installed
 uninstall=/home/pi/.firewalla/config/post_main.d/uninstall_nextdnscli.nosh
 if [ ! -f "$uninstall" ] ; then
+	touch $uninstall
+	chown pi $uninstall
+	chmod +xw $uninstall
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/uninstall_nextdns_cli.nosh > $uninstall
-        chmod +x $uninstall
         echo "✅  uninstall saved."
 else
         echo "✅  uninstall in place.."
@@ -121,9 +124,11 @@ add-subnet=32,128
 EOF
 
 sudo nextdns install \
--config ${IP}/24=${id} \
+-config $id
 -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns ${IP} -listen ${IP}:5555 
 
+# IF you want to apply this to just one network put each network as follows (this one uses the variable IP defined above) 
+# -config ${IP}/24=${id} \
 # enable NextDNS caching: https://github.com/nextdns/nextdns/wiki/Cache-Configuration
 # set discovery-dns to IP of Firewalla local DNS
 # set NextDNS CLI to listen on local network IP (instead of 127.0.0.1 -- allows DHCP host resolution in NextDNS logs)
