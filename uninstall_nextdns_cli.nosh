@@ -47,6 +47,11 @@ fi
 
 unalias -a apt && sudo apt remove nextdns 
 
+if [ -f "/home/pi/.firewalla/config/dnsmasq/mynextdns.conf" ]; then
+        sudo rm -vi /home/pi/.firewalla/config/dnsmasq/mynextdns.conf
+fi
+
+
 # restart Firewalla DNS service
 sudo systemctl restart firerouter_dns.service
 
