@@ -44,6 +44,18 @@ else
         echo "✅  test in place."
 fi
 
+# Install stop Script if not installed. 
+nextdnsstop=/data/nextdnsstop.sh
+if [ ! -f "$nextdnstest" ] ; then
+	sudo touch $nextdnsstop
+	sudo chown pi $nextdnsstop
+	sudo chmod +wrx $nextdnsstop
+        curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnsstop.sh > $nextdnstop
+        echo "✅  stop saved."
+else
+        echo "✅  stop in place."
+fi
+
 # Install data for IFTTT notification
 nextdnsdata=/data/nextdnsdata.txt
 if [ ! -f "$nextdnsdata" ] ; then
