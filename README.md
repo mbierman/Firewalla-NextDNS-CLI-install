@@ -4,7 +4,8 @@ This is a script for installing NextDNS CLI container on Firewalla Gold and Purp
 
 # Notes
 - NextDNS CLI runs fine on Gold and Purple series Firewalla boxes.
-- You can run NextDNS CLI and you can have Firewalla Unbound or DoH running, but any given client can only use one of these as they are mutually exclusive. By default, any device that is not in the Unbound or DoH group will use nextDNS CLI for any network segment that is set to use nextDNS and the WAN DNS will be ignored.  
+- You can run NextDNS CLI and you can have Firewalla Unbound or DoH running, but any given client can only use one of these as they are mutually exclusive. By default, any device that is not in the Unbound or DoH group will use nextDNS CLI for any network segment that is set to use nextDNS and the WAN DNS will be ignored.
+- nextDNS also has support for using it on your mobile devices when away from home. (e.g. see https://apple.nextdns.io/) you can set it to the same profiles you use at home or a different one. So you can have some of the benefits such as ad filtering without the overhead of running a VPN. 
 
 - Pros: 
    * Running NextDNS CLI as opposed to using Firewalla DoH > NextDNS, you can have DoH betwen FW and NextDNS and it shows individual client devices, not just your firewalla making all the requests. Less anonymous to be sure, but if you want to look at logs by device, that is handy. Note, it seems that is by IP (not mac address of course) so you may end up with the same device entered many times. :( I haven't found a solution to that yet. You can of course, always disable NextDNS logs if you like. 
@@ -30,6 +31,11 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-
    Note you can set up different devices using different nextDNS configurations including VPN connections. For example, I have Apple TVs in a different nextDNS configration so I can tune them.  Simply add a line like this: 
    
    -config macaddress=nextdnsconfiguration ID \
+   
+   There are more notes in the installation script about configuratoin choices you can make such as: 
+   - different profiles for VPN connections
+   - different profiles per device (by mac address) e.g. an Apple TV might use a different profile than a desktop . 
+   - different profiles per network segment (e.g. an IoT segment might be different from a trusted network) 
 
 4. After editing, run the script 
 
@@ -99,7 +105,7 @@ Make sure the "4m" is < the amount of time between runs. So here we have run eve
 You can also send a notification via IFTT. This requires IFTTT to send the notifiction. Edit `/data/nextdnsdata.txt` to include your IFTTT API Key. 
 
 ### Known issue
-The monitoring script seems to confict with Firewalla and it will often restart nextdns unnecessarily. As a result, I suggest not using the the testing script for the time being until I can figure this out. 
+The monitoring script seems to confict with Firewalla and it will often restart nextdns unnecessarily. As a result, I suggest not using the the testing script for the time being until I can figure this out. in all honesty it doesn't seem to be necessary anyway. 
 
 # Pausing
 You can temporarily stop nextdns for testing etc. without uninstalltalling it. Simply run this file (or the commands in it). 
