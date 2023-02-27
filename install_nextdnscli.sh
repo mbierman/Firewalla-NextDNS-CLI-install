@@ -115,6 +115,8 @@ if [ -z "$(command -v nextdns)" ] ; then
 	sudo apt install nextdns
 else
 	echo "✅  nextdns already installed..."
+	echo "Checking for nextdns update..."
+	sudo nextdns upgrade
 fi
 
 cat > /home/pi/.firewalla/config/dnsmasq/mynextdns.conf << EOF
