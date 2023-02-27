@@ -34,7 +34,7 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-
    
    There are more notes in the installation script about configuratoin choices you can make such as: 
    - different profiles for VPN connections
-   - different profiles per device (by mac address) e.g. an Apple TV might use a different profile than a desktop . 
+   - different profiles per device (by mac address) e.g. an Apple TV might use a different profile than a desktop or a different profile for a child's devices. However, Firewalla Groups are not supported by nextDNS so you have to list each device)
    - different profiles per network segment (e.g. an IoT segment might be different from a trusted network) 
 
 4. After editing, run the script 
