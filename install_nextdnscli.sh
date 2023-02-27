@@ -128,29 +128,37 @@ sudo nextdns install \
 -config $id \
 -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns ${IP} -listen ${IP}:5555 
 
-# IF you want to apply this to just one network put each network as follows (this one uses the variable IP defined above) 
-# -config ${IP}/24=${id} \
-# enable NextDNS caching: https://github.com/nextdns/nextdns/wiki/Cache-Configuration
-# set discovery-dns to IP of Firewalla local DNS
-# set NextDNS CLI to listen on local network IP (instead of 127.0.0.1 -- allows DHCP host resolution in NextDNS logs)
-# define listen port instead of relying on -setup-router
-# sudo nextdns install -config $id -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns $IP/24 -listen ${IP}:5555
-
-# You can also put a config for an individual mac address like so. Edit to include your actual mac addres and
-# put thse before the config above.
-# -config xx:yy:zz:aa:bb:cc=${id} \
-
-# you can use nextdns on OpenVPN or WireGuard Put thse before the config above.
-# -config $OpenVPNIP/24=$VPNID \
-# -config $WireGuardIP/24=$VPNID \
-
-# sudo nextdns install -config $id -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns $IP -listen ${IP}:5555
 
 # alternate command to implement conditional configuration: https://github.com/nextdns/nextdns/wiki/Conditional-Configuration
 # sudo nextdns install \
 # -config $IP/24=abcdef \
 # -config 123456 \
 # -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns 10.10.12.1 -listen 10.10.12.1:5555
+
+# IF you want to apply this to just one network put each network as follows (this one uses the variable IP defined above) 
+# -config ${IP}/24=${id} \
+
+# For example, you could have a different profile for IoT devices or Guest Networks. 
+
+# You can also put a config for an individual mac address like so. Edit to include your actual mac addres and
+# put thse before the config above.
+# -config xx:yy:zz:aa:bb:cc=${id} \
+
+# For example if you want an Apple TV to use a different nextDNS profile which has different filters. 
+
+# You can also set profiles for OpenVPN or WireGuard Profiles. Put thse before the config above.
+# -config $OpenVPNIP/24=$VPNID \
+# -config $WireGuardIP/24=$VPNID \
+
+# This assumes using the Variables defined above. 
+
+# See NextDNS caching: https://github.com/nextdns/nextdns/wiki/Cache-Configuration
+# set discovery-dns to IP of Firewalla local DNS
+# set NextDNS CLI to listen on local network IP (instead of 127.0.0.1 -- allows DHCP host resolution in NextDNS logs)
+# define listen port instead of relying on -setup-router
+# sudo nextdns install -config $id -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns $IP/24 -listen ${IP}:5555
+
+# sudo nextdns install -config $id -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns $IP -listen ${IP}:5555
 
 # Add dnsmasq integration to enable client reporting in NextDNS logs: https://github.com/nextdns/nextdns/wiki/DNSMasq-Integration
 
