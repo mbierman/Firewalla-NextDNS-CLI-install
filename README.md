@@ -4,7 +4,7 @@ This is a script for installing NextDNS CLI container on Firewalla Gold and Purp
 
 # Notes
 - NextDNS CLI runs fine on Gold and Purple series Firewalla boxes.
-- You can run NextDNS CLI and you can have Firewalla Unbound or DoH running, but any given client can only use one of these as they are mutually exclusive. By default, any device that is not in the Unbound or DoH group will use nextDNS CLI for any network segment that is set to use nextDNS and the WAN DNS will be ignored.
+- You can run NextDNS CLI and you can have Firewalla Unbound or DoH running, but any given client can only use one of these as they are mutually exclusive. By default, any device that is not in the Unbound or DoH group will use NextDNS CLI for any network segment that is set to use nextDNS and the WAN DNS will be ignored.
 - nextDNS also has support for using it on your mobile devices when away from home. (e.g. see https://apple.nextdns.io/) you can set it to the same profiles you use at home or a different one. So you can have some of the benefits such as ad filtering without the overhead of running a VPN. 
 
 - Pros: 
@@ -28,7 +28,7 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-
    vi /home/pi/.firewalla/config/post_main.d/install_nextdnscli.sh
    ```
    
-   Note you can set up different devices using different nextDNS configurations including VPN connections. For example, I have Apple TVs in a different nextDNS configration so I can tune them.  Simply add a line like this: 
+   Note you can set up different devices using different NextDNS configurations including VPN connections. For example, I have Apple TVs in a different nextDNS configration so I can tune them.  Simply add a line like this: 
    
    -config macaddress=nextdnsconfiguration ID \
    
