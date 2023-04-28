@@ -33,7 +33,7 @@ fi
 
 # Install validation script if not installed. 
 file=/data/nextdnstest.sh
-if [ ! -f "$nextdnstest" ] ; then
+if [ ! -f "$file" ] ; then
 	sudo touch $file
 	sudo chown pi $file
 	sudo chmod +wx $file
@@ -45,7 +45,7 @@ fi
 
 # Install stop Script if not installed. 
 file=/data/nextdnsstop.sh
-if [ ! -f "$nextdnstest" ] ; then
+if [ ! -f "file" ] ; then
 	sudo touch $file
 	sudo chown pi $file
 	sudo chmod +wrx $file
@@ -57,7 +57,7 @@ fi
 
 # Install data for IFTTT notification
 file=/data/nextdnsdata.txt
-if [ ! -f "$nextdnsdata" ] ; then
+if [ ! -f "$file" ] ; then
 	sudo touch $file 
 	sudo chmod +rw $file
 	sudo chown pi $file
