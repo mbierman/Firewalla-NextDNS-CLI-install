@@ -2,16 +2,17 @@
 
 This is a script for installing NextDNS CLI container on Firewalla Gold and Purple series devices. It is based on [a script by Brian Curtis](https://help.firewalla.com/hc/en-us/community/posts/7469669689619-NextDNS-CLI-on-Firewalla-revisited-working-DHCP-host-resolution-in-NextDNS-logs-) and has been tested on Firewalla 1.975 and above running in Router mode.
 
+This script is maintained by me, and is not associated with Firewalla.
+
 # Notes
 - NextDNS CLI runs fine on Gold and Purple series Firewalla boxes.
 - The script will automatically grab the latest version of nextDNS CLI. 
 - You can run NextDNS CLI and you can have Firewalla Unbound or DoH running, but any given client can only use one of these as they are mutually exclusive. By default, any device that is not in the Unbound or DoH group will use NextDNS CLI for any network segment that is set to use nextDNS and the WAN DNS will be ignored.
-- nextDNS also has support for using it on your mobile devices when away from home. (e.g. see https://apple.nextdns.io/) you can set it to the same profiles you use at home or a different one. So you can have some of the benefits such as ad filtering without the overhead of running a VPN. 
+- nextDNS also has support for using it on your mobile devices when away from home. (e.g. see https://apple.nextdns.io/) you can set it to the same profiles you use at home or a different one. So you can have some of the benefits such as ad filtering without the overhead of running a VPN.
 
 - Pros: 
    * Running NextDNS CLI as opposed to using Firewalla DoH > NextDNS, you can have DoH betwen FW and NextDNS and it shows individual client devices, not just your firewalla making all the requests. Less anonymous to be sure, but if you want to look at logs by device, that is handy. Note, it seems that is by IP (not mac address of course) so you may end up with the same device entered many times. :( I haven't found a solution to that yet. You can of course, always disable NextDNS logs if you like. 
-   * NextDNS CLI does not require disabling Firewalla DNS Booster any negative side effects. 
-
+   * NextDNS CLI does not require disabling Firewalla DNS Booster any negative side effects.
 
 # Installation
 To install:
