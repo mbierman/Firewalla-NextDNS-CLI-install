@@ -2,7 +2,7 @@
 
 This is a script for installing NextDNS CLI container on Firewalla Gold and Purple series devices. It is based on [a script by Brian Curtis](https://help.firewalla.com/hc/en-us/community/posts/7469669689619-NextDNS-CLI-on-Firewalla-revisited-working-DHCP-host-resolution-in-NextDNS-logs-) and has been tested on Firewalla 1.975 and above running in Router mode.
 
-This script is maintained by me, and is not associated with Firewalla.
+This script is maintained by me, and is not associated with or supported by Firewalla.
 
 # Notes
 - NextDNS CLI runs fine on Gold and Purple series Firewalla boxes.
