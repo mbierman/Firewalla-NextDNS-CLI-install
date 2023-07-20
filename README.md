@@ -107,7 +107,7 @@ Make sure the "4m" is < the amount of time between runs. So here we have run eve
 You can also send a notification via IFTT. This requires IFTTT to send the notifiction. Edit `/data/nextdnsdata.txt` to include your IFTTT API Key. 
 
 ### Known issue
-The monitoring script seems to confict with Firewalla and it will often restart nextdns unnecessarily. As a result, I suggest not using the the testing script for the time being until I can figure this out. in all honesty it doesn't seem to be necessary anyway. 
+The monitoring script seems to confict with Firewalla and it will often restart nextdns unnecessarily. As a result, I suggest not using the the testing script for the time being until I can figure this out. in all honesty it doesn't seem to be necessary but I'm leaving it in the repo. 
 
 # Pausing
 You can temporarily stop nextdns for testing etc. without uninstalltalling it. Simply run this file (or the commands in it). 
