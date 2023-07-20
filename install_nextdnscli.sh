@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 2.6.1
+# 2.6.2
 # Based on a script by Brian Curtis 
 # https://help.firewalla.com/hc/en-us/community/posts/7469669689619-NextDNS-CLI-on-Firewalla-revisited-working-DHCP-host-resolution-in-NextDNS-logs-
 
@@ -10,17 +10,26 @@
 
 # set id with your own NextDNS config ID
 # set IP with your Firewalla local lan IP
+# you can set up different profiles for different LANs if you wish 
+# you can use the same profile on more than one LAN if you wish. 
+# the config section below has to be updated if you add more than one LAN. 
 id=
 IP=
 # Put your OpenVPN and WireGuard IP ranges here. 
+
 # These are optional. 
 OpenVPNID=
 OpenVPNIP=
 WireGuardID=
 WireGuardIP=
+# If you put your "linked IP" from nextDNS here your DNS will be updated when you start nextDNS. 
+# you can also use your Firewalla DDNS in the nextDNS console, but remember to update it if that changes 
+# (e.g. you reinstall Firewalla) 
+DDNS=
+
 
 if [ -f /data/stopnextdns ] ; then
-        echo "❌  No nextDNS" 
+        echo "❌  not starting nextDNS" 
         exit
 fi
 
@@ -45,7 +54,7 @@ fi
 
 # Install stop Script if not installed. 
 file=/data/nextdnsstop.sh
-if [ ! -f "file" ] ; then
+if [ ! -f "$file" ] ; then
 	sudo touch $file
 	sudo chown pi $file
 	sudo chmod +wrx $file
@@ -119,13 +128,17 @@ else
 	sudo nextdns upgrade
 fi
 
+# Create settings file
 cat > /home/pi/.firewalla/config/dnsmasq/mynextdns.conf << EOF
 server=${IP}#5555
 add-mac
 add-subnet=32,128
 EOF
 
-# Start nextDNS 
+
+
+# modify as needed
+# this is an absolute minimal config. 
 sudo nextdns install \
 -config $id \
 -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns ${IP} -listen ${IP}:5555 
@@ -164,6 +177,9 @@ sudo nextdns install \
 
 # Add dnsmasq integration to enable client reporting in NextDNS logs: https://github.com/nextdns/nextdns/wiki/DNSMasq-Integration
 
+curl -s $DDNS && echo DDNS updated...
+
 # sudo nextdns restart 
-echo "Restarting Firewalla DNS..." 
-sudo systemctl restart firerouter_dns.service && echo "nextdns is... $(sudo nextdns status)"
+echo "Restarting Firewalla DNS..." && \
+sudo systemctl restart firerouter_dns.service && \
+sleep 20 && echo "nextdns is... $(sudo nextdns status)"
