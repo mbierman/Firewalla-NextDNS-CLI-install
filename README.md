@@ -114,7 +114,7 @@ You can temporarily stop nextdns for testing etc. without uninstalltalling it. S
 
 [nextdnsstop.sh](https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/nextdnsstop.sh)
  
- To Resume nextdns CLI, simply re-run the install script. Don't worry anything in place will be skipped and everything will restart and should be good. Nothing will be lost. 
+To Resume nextdns CLI, remove /data/xxx and  re-run the install script. 
 
 # Uninstalling
 
