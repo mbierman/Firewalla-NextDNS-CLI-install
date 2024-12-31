@@ -1,6 +1,5 @@
 #!/bin/bash
-
-# 2.6.3
+# 2.7.1
 # Based on a script by Brian Curtis 
 # https://help.firewalla.com/hc/en-us/community/posts/7469669689619-NextDNS-CLI-on-Firewalla-revisited-working-DHCP-host-resolution-in-NextDNS-logs-
 
@@ -27,6 +26,25 @@ WireGuardIP=
 # (e.g. you reinstall Firewalla) 
 DDNS=
 
+case $1 in  
+        "-n" | "-now")
+                echo -e "\nReady to rock."
+        ;;  
+        *)  
+        total_seconds=130
+
+        while [ $total_seconds -gt 0 ]; do
+                minutes=$((total_seconds / 60))
+                seconds=$((total_seconds % 60))
+
+                printf "\rStarting in: %02d:%02d" $minutes $seconds
+                sleep 1
+                ((total_seconds--))
+        done
+
+        echo -e "\nReady to rock."
+        ;;  
+esac
 
 if [ -f /data/stopnextdns ] ; then
         echo "❌  not starting nextDNS" 
@@ -116,7 +134,6 @@ fi
 
 # install NextDNS CLI
 if [ -z "$(command -v nextdns)" ] ; then
-        unalias apt
 	sudo apt install ca-certificates
 	sudo wget -qO /usr/share/keyrings/nextdns.gpg https://repo.nextdns.io/nextdns.gpg
 	echo "deb [signed-by=/usr/share/keyrings/nextdns.gpg] https://repo.nextdns.io/deb stable main" | sudo tee /etc/apt/sources.list.d/nextdns.list
@@ -136,12 +153,22 @@ add-subnet=32,128
 EOF
 
 
-
+# Configuration Section 
 # modify as needed
+# Modify as needed. remove "#" vbefor each linne
 # this is an absolute minimal config. 
+# sudo nextdns install \
+# -config $id \
+# -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns ${IP} -listen ${IP}:5555 
+
+# Example
+# Modify as needed. remove "#" vbefor each line and all the comments but leave the "\" and the end of each line
 sudo nextdns install \
--config $id \
--report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns ${IP} -listen ${IP}:5555 
+# -config ${IP}/24=${id} \  # the IP is defined above. You can configure an entire network at once this way e.g. "192.168,0.1" 
+# -config $OpenVPN/24=$VPNID \ # this uses the IP for your OpenVPN defined above to apply to OpenVPN connections
+# -config $WireGuard/24=$VPNID \ # this uses the IP for your WireGuard defined above to apply to WireGuard connections
+# -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns ${IP} -listen ${IP}:5555
+
 
 
 # alternate command to implement conditional configuration: https://github.com/nextdns/nextdns/wiki/Conditional-Configuration
@@ -177,7 +204,7 @@ sudo nextdns install \
 
 # Add dnsmasq integration to enable client reporting in NextDNS logs: https://github.com/nextdns/nextdns/wiki/DNSMasq-Integration
 
-curl -s $DDNS && echo DDNS updated...
+curl -s $DDNS && echo " DDNS updated..."
 
 # sudo nextdns restart 
 echo "Restarting Firewalla DNS..." && \
