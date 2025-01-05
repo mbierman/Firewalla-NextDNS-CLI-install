@@ -1,5 +1,5 @@
 #!/bin/bash
-# 2.7.1
+# 2.7.2
 # Based on a script by Brian Curtis 
 # https://help.firewalla.com/hc/en-us/community/posts/7469669689619-NextDNS-CLI-on-Firewalla-revisited-working-DHCP-host-resolution-in-NextDNS-logs-
 
@@ -98,9 +98,9 @@ fi
 # Install Uninstall script if not installed
 file=/home/pi/.firewalla/config/post_main.d/uninstall_nextdnscli.nosh
 if [ ! -f "$file" ] ; then
-	touch $file
-	chown pi $file
-	chmod +xw $file
+	sudo touch $file
+	sudo chown pi $file
+	sudo chmod +xw $file
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/uninstall_nextdns_cli.nosh > $file
         echo "✅  uninstall saved."
 else
@@ -110,9 +110,9 @@ fi
 # Install script if not installed. 
 file=/home/pi/.firewalla/config/post_main.d/install_nextdnscli.sh 
 if [ ! -f "$file" ] ; then
-	touch $file
-	chown pi $file
-	chmod +xw $file
+	sudo touch $file
+	sudo chown pi $file
+	sudo chmod +xw $file
         curl https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-install/main/install_nextdnscli.sh >> $file
         echo "✅  install saved."
 else
