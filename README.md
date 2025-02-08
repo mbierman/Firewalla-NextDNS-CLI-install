@@ -9,6 +9,7 @@ This script is maintained by me, and is not associated with or supported by Fire
 - The script will automatically grab the latest version of NextDNS CLI. 
 - You can run NextDNS CLI and you can have Firewalla Unbound or DoH running, but any given client can only use one of these as they are mutually exclusive. By default, any device that is not in the Unbound or DoH group will use NextDNS CLI for any network segment that is set to use NextDNS and the WAN DNS will be ignored.
 - NextDNS also has support for using it on your mobile devices when away from home. (e.g. see https://apple.nextdns.io/) you can set it to the same profiles you use at home or a different one. So you can have some of the benefits such as ad filtering without the overhead of running a VPN.
+- NextDNS 1.44.4 has a bug that isn't reporting client information to the logs. This is supposed to be addressed by [1003](https://github.com/nextdns/nextdns/issues/1003)
 
 - Pros: 
    * Running NextDNS CLI as opposed to using Firewalla DoH > NextDNS, you can have DoH betwen FW and NextDNS and it shows individual client devices, not just your firewalla making all the requests. Less anonymous to be sure, but if you want to look at logs by device, that is handy. Note, it seems that is by IP (not mac address of course) so you may end up with the same device entered many times. :( I haven't found a solution to that yet. You can of course, always disable NextDNS logs if you like. 
