@@ -57,7 +57,7 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-
 # Testing
 After completing the steps above, you can: 
 
-1. Open `https://test.NextDNS.io/` 
+1. Open `https://test.nextdns.io/` 
 ![11662D0C-718C-4B7F-AC27-816FA02D4764](https://user-images.githubusercontent.com/1205471/189506662-a65c3b78-bc26-4d76-939c-1b75b9233c13.jpeg)
 
 
@@ -85,7 +85,7 @@ github.com.		10	IN	A	192.30.255.113
 ```
 The SERVER line should match the Firewalla server you set if NextDNS CLI is working. OR 
 
-3. You can try https://my.NextDNS.io/ to see if it shows that NextDNS is working. 
+3. You can try https://my.nextdns.io/ to see if it shows that NextDNS is working. 
 
 Great resource for [all things NextDNS CLI](https://github.com/NextDNS/NextDNS/wiki).
 
@@ -125,7 +125,7 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-
 
 This script will also be saved when you install and you can just run it locally:
 ```
-/home/pi/.firewalla/config/post_main.d/uninstall_NextDNScli.nosh
+/home/pi/.firewalla/config/post_main.d/uninstall_nextdnscli.nosh
 ```
 
 There are lots of NextDNS communities on Reddit. If you have NextDNS CLI questions, please check there.
