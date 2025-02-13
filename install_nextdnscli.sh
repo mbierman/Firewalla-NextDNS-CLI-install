@@ -21,8 +21,13 @@ OpenVPNID=
 OpenVPNIP=
 WireGuardID=
 WireGuardIP=
-# If you put your "linked IP" from nextDNS here your DNS will be updated when you start nextDNS. 
-# you can also use your Firewalla DDNS in the nextDNS console, but remember to update it if that changes 
+
+# To update the NextDNS  DDNS, use the URL under Advanced DDNS in NextDNS
+# DDNS1=https://link-ip.nextdns.io/42eadb/7dc5b7251af22fd2
+
+
+# If you put your "linked IP" from NextDNS here your DNS will be updated when you start NextDNS. 
+# you can also use your Firewalla DDNS in the NextDNS console, but remember to update it if that changes 
 # (e.g. you reinstall Firewalla) 
 DDNS=
 
@@ -47,7 +52,7 @@ case $1 in
 esac
 
 if [ -f /data/stopnextdns ] ; then
-        echo "❌  not starting nextDNS" 
+        echo "❌  not starting NextDNS" 
         exit
 fi
 
@@ -146,7 +151,10 @@ else
 fi
 
 # Create settings file
-cat > /home/pi/.firewalla/config/dnsmasq/mynextdns.conf << EOF
+dnsmasq=/home/pi/.firewalla/config/dnsmasq_local/mynextdns
+echo creating $dnsmasq ...
+
+cat > $dnsmasq << EOF
 server=${IP}#5555
 add-mac
 add-subnet=32,128
@@ -158,39 +166,49 @@ EOF
 # Modify as needed. remove "#" vbefor each linne
 # this is an absolute minimal config. 
 # sudo nextdns install \
-# -config $id \
+# -profile $id \
 # -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns ${IP} -listen ${IP}:5555 
 
-# Example
+# Examples
+# the uncommented lines are the absolute minimum configuratoin
 # Modify as needed. remove "#" vbefor each line and all the comments but leave the "\" and the end of each line
 sudo nextdns install \
-# -config ${IP}/24=${id} \  # the IP is defined above. You can configure an entire network at once this way e.g. "192.168,0.1" 
-# -config $OpenVPN/24=$VPNID \ # this uses the IP for your OpenVPN defined above to apply to OpenVPN connections
-# -config $WireGuard/24=$VPNID \ # this uses the IP for your WireGuard defined above to apply to WireGuard connections
+-profile ${IP}/24=${id} \  # the IP is defined above. You can configure an entire network at once this way e.g. "192.168,0.1"
+# -profile br0=${id}
+# -profile $OpenVPN/24=$VPNID \ # this uses the IP for your OpenVPN defined above to apply to OpenVPN connections
+# -profile $WireGuard/24=$VPNID \ # this uses the IP for your WireGuard defined above to apply to WireGuard connections
 # -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns ${IP} -listen ${IP}:5555
+-log-queries \
+-bogus-priv \
+-mdns disabled \
+-report-client-info \
+-discovery-dns $IP \
+-cache-size 10MB \
+-max-ttl 5s \
+-listen $IP:5555
 
 
 
 # alternate command to implement conditional configuration: https://github.com/nextdns/nextdns/wiki/Conditional-Configuration
 # sudo nextdns install \
-# -config $IP/24=abcdef \
-# -config 123456 \
+# -profile $IP/24=abcdef \
+# -profile 123456 \
 # -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns 10.10.12.1 -listen 10.10.12.1:5555
 
 # IF you want to apply this to just one network put each network as follows (this one uses the variable IP defined above) 
-# -config ${IP}/24=${id} \
+# -profile ${IP}/24=${id} \
 
 # For example, you could have a different profile for IoT devices or Guest Networks. 
 
 # You can also put a config for an individual mac address like so. Edit to include your actual mac addres and
 # put thse before the config above.
-# -config xx:yy:zz:aa:bb:cc=${id} \
+# -profile xx:yy:zz:aa:bb:cc=${id} \
 
-# For example if you want an Apple TV to use a different nextDNS profile which has different filters. 
+# For example if you want an Apple TV to use a different NextDNS profile which has different filters. 
 
 # You can also set profiles for OpenVPN or WireGuard Profiles. Put thse before the config above.
-# -config $OpenVPNIP/24=$VPNID \
-# -config $WireGuardIP/24=$VPNID \
+# -profile $OpenVPNIP/24=$VPNID \
+# -profile $WireGuardIP/24=$VPNID \
 
 # This assumes using the Variables defined above. 
 
@@ -198,13 +216,13 @@ sudo nextdns install \
 # set discovery-dns to IP of Firewalla local DNS
 # set NextDNS CLI to listen on local network IP (instead of 127.0.0.1 -- allows DHCP host resolution in NextDNS logs)
 # define listen port instead of relying on -setup-router
-# sudo nextdns install -config $id -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns $IP/24 -listen ${IP}:5555
+# sudo nextdns install -profile $id -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns $IP/24 -listen ${IP}:5555
 
-# sudo nextdns install -config $id -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns $IP -listen ${IP}:5555
+# sudo nextdns install -profile $id -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns $IP -listen ${IP}:5555
 
 # Add dnsmasq integration to enable client reporting in NextDNS logs: https://github.com/nextdns/nextdns/wiki/DNSMasq-Integration
 
-curl -s $DDNS && echo " DDNS updated..."
+curl -s $DDNS1 && echo " DDNS $DDNS1 updated..."
 
 # sudo nextdns restart 
 echo "Restarting Firewalla DNS..." && \
