@@ -150,6 +150,13 @@ else
 	sudo nextdns upgrade
 fi
 
+# Clean up dnsold conf
+ olddnsconf="/home/pi/.firewalla/config/dnsmasq/mynextdns.conf"
+ if [ -f $olddnsconf ]; then
+	rm $olddnsconf
+ fi
+
+
 # Create settings file
 dnsmasq=/home/pi/.firewalla/config/dnsmasq_local/mynextdns
 echo creating $dnsmasq ...
@@ -159,7 +166,6 @@ server=${IP}#5555
 add-mac
 add-subnet=32,128
 EOF
-
 
 # Configuration Section 
 # modify as needed
