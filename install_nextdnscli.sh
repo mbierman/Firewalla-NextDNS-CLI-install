@@ -1,5 +1,5 @@
 #!/bin/bash
-# 2.7.2
+# 2.8.0
 # Based on a script by Brian Curtis 
 # https://help.firewalla.com/hc/en-us/community/posts/7469669689619-NextDNS-CLI-on-Firewalla-revisited-working-DHCP-host-resolution-in-NextDNS-logs-
 
@@ -139,21 +139,25 @@ fi
 
 # install NextDNS CLI
 if [ -z "$(command -v nextdns)" ] ; then
-	sudo apt install ca-certificates
-	sudo wget -qO /usr/share/keyrings/nextdns.gpg https://repo.nextdns.io/nextdns.gpg
-	echo "deb [signed-by=/usr/share/keyrings/nextdns.gpg] https://repo.nextdns.io/deb stable main" | sudo tee /etc/apt/sources.list.d/nextdns.list
-	sudo apt update
-	sudo apt install nextdns
+#       OLD install 
+#       sudo apt install ca-certificates
+#       sudo wget -qO /usr/share/keyrings/nextdns.gpg https://repo.nextdns.io/nextdns.gpg
+#       echo "deb [signed-by=/usr/share/keyrings/nextdns.gpg] https://repo.nextdns.io/deb stable main" | sudo tee /etc/apt/sources.list.d/nextdns.list
+#       sudo apt update
+#       sudo apt install nextdns
+        sh -c 'sh -c "$(curl -sL https://nextdns.io/install)"'
+
 else
-	echo "✅  nextdns already installed..."
-	echo "Checking for nextdns update..."
-	sudo nextdns upgrade
+        echo "✅  nextdns already installed..."
+        echo "Checking for nextdns update..."
+        sudo nextdns upgrade
 fi
 
-# Clean up dnsold conf
+
+# Clean up old dnsmasq conf
  olddnsconf="/home/pi/.firewalla/config/dnsmasq/mynextdns.conf"
  if [ -f $olddnsconf ]; then
-	rm $olddnsconf
+	rm -f $olddnsconf
  fi
 
 
