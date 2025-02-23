@@ -1,5 +1,5 @@
 #!/bin/bash
-# 2.8.0
+# 2.8.1
 # Based on a script by Brian Curtis 
 # https://help.firewalla.com/hc/en-us/community/posts/7469669689619-NextDNS-CLI-on-Firewalla-revisited-working-DHCP-host-resolution-in-NextDNS-logs-
 
@@ -155,14 +155,18 @@ fi
 
 
 # Clean up old dnsmasq conf
- olddnsconf="/home/pi/.firewalla/config/dnsmasq/mynextdns.conf"
- if [ -f $olddnsconf ]; then
-	rm -f $olddnsconf
- fi
-
+olddnsconf="/home/pi/.firewalla/config/dnsmasq/*nextdns*"
+# Ensure the pattern expands to files
+shopt -s nullglob  # Ensures the pattern expands to nothing instead of literally '*nextdns*' if no matches
+for file in $olddnsconf; do
+    if [ -f "$file" ]; then
+        rm -f "$file"
+    fi
+done
+shopt -u nullglob  # Restore the default behavior
 
 # Create settings file
-dnsmasq=/home/pi/.firewalla/config/dnsmasq_local/mynextdns
+dnsmasq=/home/pi/.firewalla/config/dnsmasq_local/netdns.conf
 echo creating $dnsmasq ...
 
 cat > $dnsmasq << EOF
