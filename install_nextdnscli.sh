@@ -1,5 +1,5 @@
 #!/bin/bash
-# 2.8.1
+# 2.8.2
 # Based on a script by Brian Curtis 
 # https://help.firewalla.com/hc/en-us/community/posts/7469669689619-NextDNS-CLI-on-Firewalla-revisited-working-DHCP-host-resolution-in-NextDNS-logs-
 
@@ -176,12 +176,16 @@ add-subnet=32,128
 EOF
 
 # Configuration Section 
-# modify as needed
-# Modify as needed. remove "#" vbefor each linne
+# Modify as needed. remove "#" before each line
 # this is an absolute minimal config. 
 # sudo nextdns install \
-# -profile $id \
-# -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns ${IP} -listen ${IP}:5555 
+# -profile 123456 \
+# -mdns disabled \
+# -report-client-info
+# -cache-size=10MB
+# -max-ttl=5s
+# -discovery-dns ${IP}
+# -listen ${IP}:5555 
 
 # Examples
 # the uncommented lines are the absolute minimum configuratoin
@@ -202,13 +206,6 @@ sudo nextdns install \
 -listen $IP:5555
 
 
-
-# alternate command to implement conditional configuration: https://github.com/nextdns/nextdns/wiki/Conditional-Configuration
-# sudo nextdns install \
-# -profile $IP/24=abcdef \
-# -profile 123456 \
-# -report-client-info -cache-size=10MB -max-ttl=5s -discovery-dns 10.10.12.1 -listen 10.10.12.1:5555
-
 # IF you want to apply this to just one network put each network as follows (this one uses the variable IP defined above) 
 # -profile ${IP}/24=${id} \
 
@@ -216,8 +213,8 @@ sudo nextdns install \
 
 # You can also put a config for an individual mac address like so. Edit to include your actual mac addres and
 # put thse before the config above.
+# To prioritize a different profile for a single mac address on a network you are applying applying a different profile, the mac address must come before the network. 
 # -profile xx:yy:zz:aa:bb:cc=${id} \
-
 # For example if you want an Apple TV to use a different NextDNS profile which has different filters. 
 
 # You can also set profiles for OpenVPN or WireGuard Profiles. Put thse before the config above.
