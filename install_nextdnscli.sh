@@ -1,5 +1,5 @@
 #!/bin/bash
-# 2.8.2
+# 2.8.3
 # Based on a script by Brian Curtis 
 # https://help.firewalla.com/hc/en-us/community/posts/7469669689619-NextDNS-CLI-on-Firewalla-revisited-working-DHCP-host-resolution-in-NextDNS-logs-
 
