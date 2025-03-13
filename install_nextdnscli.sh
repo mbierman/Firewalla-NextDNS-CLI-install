@@ -166,7 +166,7 @@ done
 shopt -u nullglob  # Restore the default behavior
 
 # Create settings file
-dnsmasq=/home/pi/.firewalla/config/dnsmasq_local/netdns.conf
+dnsmasq=/home/pi/.firewalla/config/dnsmasq_local/nextdns
 echo creating $dnsmasq ...
 
 cat > $dnsmasq << EOF
