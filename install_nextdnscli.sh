@@ -175,7 +175,7 @@ add-mac
 add-subnet=32,128
 EOF
 
-# Configuration Section 
+# CONFIGURATION Section 
 # Modify as needed. remove "#" before each line
 # this is an absolute minimal config. 
 # sudo nextdns install \
