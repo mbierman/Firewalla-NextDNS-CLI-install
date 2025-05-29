@@ -189,12 +189,16 @@ EOF
 
 # Examples
 # the uncommented lines are the absolute minimum configuratoin
-# Modify as needed. remove "#" vbefor each line and all the comments but leave the "\" and the end of each line
+# MODIFY AS NEEDED. remove "#" before each line and all the comments but leave the "\" and the end of each line
 sudo nextdns install \
--profile ${IP}/24=${id} \  # the IP is defined above. You can configure an entire network at once this way e.g. "192.168,0.1"
-# -profile br0=${id} \ # this uses the IP for your OpenVPN defined above to apply to OpenVPN connections
-# -profile $OpenVPN/24=$VPNID \  # this uses the IP for your WireGuard defined above to apply to WireGuard connections
-# -profile $WireGuard/24=$VPNID \ # This is for WireGuard and is optional 
+# the IP is defined above. You can configure an entire network at once this way e.g. "192.168,0.1"
+-profile ${IP}/24=${id} \  
+# this uses the IP for your OpenVPN defined above to apply to OpenVPN connections
+# -profile br0=${id} \
+# this uses the IP for your WireGuard defined above to apply to WireGuard connections
+# -profile $OpenVPN/24=$VPNID \ 
+# This is for WireGuard and is optional 
+# -profile $WireGuard/24=$VPNID \
 -log-queries \
 -bogus-priv \
 -mdns disabled \
