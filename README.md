@@ -41,7 +41,29 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-
    There are more notes in the installation script about configuratoin choices you can make such as: 
    - different profiles for VPN connections
    - different profiles per device (by mac address) e.g. an Apple TV might use a different profile than a desktop or a different profile for a child's devices. However, Firewalla Groups are not supported by NextDNS so you have to list each device)
-   - different profiles per network segment (e.g. an IoT segment might be different from a trusted network) 
+   - different profiles per network segment (e.g. an IoT segment might be different from a trusted network)
+  
+Note you MUST end up with something like the following.
+- EVERY line must end in a "\" (Nothing can be after the "\"
+- You can leave lines that start with # 
+
+
+```
+sudo nextdns install \
+# the IP is defined above. You can configure an entire network at once this way e.g. "192.168,0.1"
+-profile ${IP}/24=${id} \  
+# this uses the IP for your OpenVPN defined above to apply to OpenVPN connections
+# -profile br0=${id} \
+-log-queries \
+-bogus-priv \
+-mdns disabled \
+-report-client-info \
+-discovery-dns $IP \
+-cache-size 10MB \
+-max-ttl 5s \
+-listen $IP:5555
+```
+
 
 4. After editing, run the script 
 
