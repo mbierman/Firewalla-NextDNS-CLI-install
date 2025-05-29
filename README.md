@@ -43,7 +43,7 @@ curl -s -L -C- https://raw.githubusercontent.com/mbierman/Firewalla-NextDNS-CLI-
    - different profiles per device (by mac address) e.g. an Apple TV might use a different profile than a desktop or a different profile for a child's devices. However, Firewalla Groups are not supported by NextDNS so you have to list each device)
    - different profiles per network segment (e.g. an IoT segment might be different from a trusted network)
   
-Note you MUST end up with something like the following.
+Note you MUST end up with something like the following in the CONFIGURATION section. 
 - EVERY line must end in a "\" (Nothing can be after the "\"
 - You can leave lines that start with # 
 
